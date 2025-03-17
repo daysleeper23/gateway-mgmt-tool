@@ -14,7 +14,7 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands';
+import "./commands";
 import "tailwindcss";
 
 // Augment the Cypress namespace to include type definitions for

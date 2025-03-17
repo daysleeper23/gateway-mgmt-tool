@@ -11,10 +11,7 @@ const ListView = () => {
   return (
     <>
       <ListHeader />
-      <div
-        data-testid="list-view"
-        className="flex-1 overflow-y-auto relative"
-      >
+      <div data-testid="list-view" className="flex-1 overflow-y-auto relative">
         <div className="flex-1 flex flex-col relative">
           {gateways.map((gateway) => {
             return <ListRow key={gateway.uuid} gatewayUuid={gateway.uuid} />;

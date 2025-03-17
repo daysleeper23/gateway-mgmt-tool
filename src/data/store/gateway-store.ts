@@ -9,7 +9,9 @@ export interface GatewayStore {
 }
 
 export const useGatewayStore = create<GatewayStore>((set, get) => ({
-  gateways: gateways.results.sort((a, b) => a.gatewayId > b.gatewayId ? 1 : -1) as Gateway[],
+  gateways: gateways.results.sort((a, b) =>
+    a.gatewayId > b.gatewayId ? 1 : -1,
+  ) as Gateway[],
   updateGateway: (gateway: Gateway) =>
     set((state: { gateways: Gateway[] }) => ({
       gateways: state.gateways.map((g) =>
