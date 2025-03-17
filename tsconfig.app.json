@@ -11,8 +11,10 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "types": ["cypress"],
 
     /* Bundler mode */
+    "esModuleInterop": true,
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
