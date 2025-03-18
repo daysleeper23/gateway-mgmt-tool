@@ -11,9 +11,10 @@ export interface GatewayStore {
 }
 
 export const useGatewayStore = create<GatewayStore>((set, get) => ({
-  gateways: gateways.results.sort((a, b) =>
-    b.gatewayStatistics.lastMessageRxTime -
-    a.gatewayStatistics.lastMessageRxTime,
+  gateways: gateways.results.sort(
+    (a, b) =>
+      b.gatewayStatistics.lastMessageRxTime -
+      a.gatewayStatistics.lastMessageRxTime,
   ) as Gateway[],
 
   updateGateway: (gateway: Gateway) =>

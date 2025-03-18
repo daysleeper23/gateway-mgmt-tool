@@ -84,10 +84,7 @@ export const columns: ColumnDef<Gateway>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Last Message Timestamp
-          {column.getIsSorted() === "asc" 
-            ? <ArrowUp /> 
-            : <ArrowDown />
-          }
+          {column.getIsSorted() === "asc" ? <ArrowUp /> : <ArrowDown />}
         </Button>
       );
     },

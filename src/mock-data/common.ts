@@ -37,7 +37,7 @@ export const models = [
     value: "Real Gateway",
     label: "Real Gateway",
   },
-]
+];
 
 export const versions = [
   {

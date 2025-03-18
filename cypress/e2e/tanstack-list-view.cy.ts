@@ -60,9 +60,18 @@ describe("Tanstack List View - Filter Bar", () => {
     cy.wait(500);
     cy.get('[data-testid="list-filter-dropdown"]').should("exist");
     cy.get('[data-testid="list-filter-dropdown"]').should("contain", "ACTIVE");
-    cy.get('[data-testid="list-filter-dropdown"]').should("contain", "INACTIVE");
-    cy.get('[data-testid="list-filter-dropdown"]').should("contain", "UNAVAILABLE");
-    cy.get('[data-testid="list-filter-dropdown"]').should("contain", "UNSTABLE");
+    cy.get('[data-testid="list-filter-dropdown"]').should(
+      "contain",
+      "INACTIVE",
+    );
+    cy.get('[data-testid="list-filter-dropdown"]').should(
+      "contain",
+      "UNAVAILABLE",
+    );
+    cy.get('[data-testid="list-filter-dropdown"]').should(
+      "contain",
+      "UNSTABLE",
+    );
     cy.get('[data-testid="list-filter-dropdown"]').should("contain", "OFFLINE");
   });
 
@@ -78,11 +87,17 @@ describe("Tanstack List View - Filter Bar", () => {
     cy.get('[data-testid="list-filter-model"]').click();
     cy.wait(500);
     cy.get('[data-testid="list-filter-dropdown"]').should("exist");
-    cy.get('[data-testid="list-filter-dropdown"]').should("contain", "Simulated Gateway");
-    cy.get('[data-testid="list-filter-dropdown"]').should("contain", "Real Gateway");
+    cy.get('[data-testid="list-filter-dropdown"]').should(
+      "contain",
+      "Simulated Gateway",
+    );
+    cy.get('[data-testid="list-filter-dropdown"]').should(
+      "contain",
+      "Real Gateway",
+    );
   });
 
-    it("should reset filters when click on Reset - 1 filter", () => {
+  it("should reset filters when click on Reset - 1 filter", () => {
     cy.get('[data-testid="list-filter-status"]').click();
     cy.wait(500);
     cy.get('[data-testid="list-filter-dropdown"]').contains("ACTIVE").click();
@@ -123,7 +138,9 @@ describe("Tanstack List View - Filter Bar", () => {
 
     cy.get('[data-testid="list-filter-model"]').click();
     cy.wait(500);
-    cy.get('[data-testid="list-filter-dropdown"]').contains("Simulated Gateway").click();
+    cy.get('[data-testid="list-filter-dropdown"]')
+      .contains("Simulated Gateway")
+      .click();
     cy.wait(500);
 
     cy.get('[data-testid="list-filter-reset"]').click();
@@ -150,7 +167,6 @@ describe("Tanstack List View - Filter Bar", () => {
 });
 
 describe("Tanstack List View - Filtering Logic", () => {
-  
   it("should show correct number of rows while filtering one or multiple options", () => {
     cy.get('[data-testid="list-filter-status"]').click();
     cy.wait(500);
@@ -160,15 +176,37 @@ describe("Tanstack List View - Filtering Logic", () => {
 
     cy.get('[data-testid="list-filter-dropdown"]').contains("INACTIVE").click();
     cy.wait(500);
-    cy.get('[data-testid="list-row"]').should("have.length", ACTIVE_COUNT + INACTIVE_COUNT);
+    cy.get('[data-testid="list-row"]').should(
+      "have.length",
+      ACTIVE_COUNT + INACTIVE_COUNT,
+    );
 
     cy.get('[data-testid="list-filter-dropdown"]').contains("UNSTABLE").click();
     cy.wait(500);
-    cy.get('[data-testid="list-row"]').should("have.length", ACTIVE_COUNT + INACTIVE_COUNT + UNSTABLE_COUNT);
+    cy.get('[data-testid="list-row"]').should(
+      "have.length",
+      ACTIVE_COUNT + INACTIVE_COUNT + UNSTABLE_COUNT,
+    );
 
     cy.get('[data-testid="list-filter-dropdown"]').contains("OFFLINE").click();
     cy.wait(500);
-    cy.get('[data-testid="list-row"]').should("have.length", ACTIVE_COUNT + INACTIVE_COUNT + UNSTABLE_COUNT + OFFLINE_COUNT);
+    cy.get('[data-testid="list-row"]').should(
+      "have.length",
+      ACTIVE_COUNT + INACTIVE_COUNT + UNSTABLE_COUNT + OFFLINE_COUNT,
+    );
+
+    cy.get('[data-testid="list-filter-dropdown"]')
+      .contains("UNAVAILABLE")
+      .click();
+    cy.wait(500);
+    cy.get('[data-testid="list-row"]').should(
+      "have.length",
+      ACTIVE_COUNT +
+        INACTIVE_COUNT +
+        UNSTABLE_COUNT +
+        OFFLINE_COUNT +
+        UNAVAILABLE_COUNT,
+    );
   });
 
   it("should filter by Version when click on one of the options", () => {
@@ -176,15 +214,39 @@ describe("Tanstack List View - Filtering Logic", () => {
     cy.wait(500);
     cy.get('[data-testid="list-filter-dropdown"]').contains("1.4.4.4").click();
     cy.wait(500);
-    cy.get('[data-testid="list-row"]').should("have.length", VERSION_1_4_4_4_COUNT);
+    cy.get('[data-testid="list-row"]').should(
+      "have.length",
+      VERSION_1_4_4_4_COUNT,
+    );
+
+    cy.get('[data-testid="list-filter-dropdown"]').contains("1.4.4.3").click();
+    cy.wait(500);
+    cy.get('[data-testid="list-row"]').should(
+      "have.length",
+      VERSION_1_4_4_4_COUNT + VERSION_1_4_4_3_COUNT,
+    );
   });
 
   it("should filter by Model when click on one of the options", () => {
     cy.get('[data-testid="list-filter-model"]').click();
     cy.wait(500);
-    cy.get('[data-testid="list-filter-dropdown"]').contains("Simulated Gateway").click();
+    cy.get('[data-testid="list-filter-dropdown"]')
+      .contains("Simulated Gateway")
+      .click();
     cy.wait(500);
-    cy.get('[data-testid="list-row"]').should("have.length", SIMULATED_GATEWAY_COUNT);
+    cy.get('[data-testid="list-row"]').should(
+      "have.length",
+      SIMULATED_GATEWAY_COUNT,
+    );
+
+    cy.get('[data-testid="list-filter-dropdown"]')
+      .contains("Real Gateway")
+      .click();
+    cy.wait(500);
+    cy.get('[data-testid="list-row"]').should(
+      "have.length",
+      SIMULATED_GATEWAY_COUNT + REAL_GATEWAY_COUNT,
+    );
   });
 
   it("should render all data after clicking on Reset", () => {

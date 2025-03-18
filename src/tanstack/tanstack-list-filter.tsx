@@ -80,7 +80,11 @@ export function TanstackListFilter<TData, TValue>({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="inline-flex p-0" data-testid="list-filter-dropdown" align="start">
+      <PopoverContent
+        className="inline-flex p-0"
+        data-testid="list-filter-dropdown"
+        align="start"
+      >
         <Command>
           <CommandInput placeholder={title} />
           <CommandList>
