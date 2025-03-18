@@ -1,6 +1,23 @@
 {
   "results": [
     {
+      "uuid": "00fb1376-645d-414c-8345-8b6509733015",
+      "modificationTime": 1702462782,
+      "description": "Automatically created on received traffic",
+      "gatewayId": "gatewaySink9Sink10",
+      "networkUuid": "fd10a8b9-c9f2-4c88-86f3-b96c52fde007",
+      "sinkNodes": [
+        "bd1203a8-5317-40b6-9632-9fe42f727b7f",
+        "2273e828-c488-4d16-868f-56d6b5f7ed1d"
+      ],
+      "model": "Real Gateway",
+      "version": "1.4.4.3",
+      "status": "INACTIVE",
+      "gatewayStatistics": {
+        "lastMessageRxTime": 1702462778
+      }
+    },
+    {
       "uuid": "00fb1376-645d-414c-8345-8b6509733012",
       "modificationTime": 1702462782,
       "description": "Automatically created on received traffic",

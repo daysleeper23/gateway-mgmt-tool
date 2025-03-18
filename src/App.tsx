@@ -1,4 +1,5 @@
-import ListView from "./list/list-view";
+// import ListView from "./list/list-view";
+import { TanstackListView } from "./tanstack/tanstack-list-view";
 
 const App = () => {
   return (
@@ -7,7 +8,8 @@ const App = () => {
         <h1 className="text-3xl font-black">Wirepas Gateway Management Tool</h1>
       </div>
       <div className="flex-1 overflow-hidden relative w-full">
-        <ListView />
+        {/* <ListView /> */}
+        <TanstackListView />
       </div>
     </div>
   );
