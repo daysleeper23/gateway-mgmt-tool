@@ -2,6 +2,7 @@ import { useGatewayStore } from "@/data/store/gateway-store";
 import { Gateway } from "@/data/types/types";
 import ListRow from "./list-row";
 import ListHeader from "./list-header";
+import ListFilterSort from "./list-filter-sort";
 
 const ListView = () => {
   const gateways = useGatewayStore(
@@ -10,6 +11,7 @@ const ListView = () => {
 
   return (
     <>
+      <ListFilterSort />
       <ListHeader />
       <div data-testid="list-view" className="flex-1 overflow-y-auto relative">
         <div className="flex-1 flex flex-col relative">
