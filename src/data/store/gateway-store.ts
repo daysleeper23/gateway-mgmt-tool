@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { Gateway } from "../types/types";
-import gateways from "@/mock-data/gateway_listing_response.json";
+import { Gateway } from "../types/gateway";
+import gateways from "@/data/mock/gateway_listing_response.json";
 
 export interface GatewayStore {
   gateways: Gateway[];

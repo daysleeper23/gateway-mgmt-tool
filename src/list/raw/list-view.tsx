@@ -1,5 +1,5 @@
 import { useGatewayStore } from "@/data/store/gateway-store";
-import { Gateway } from "@/data/types/types";
+import { Gateway } from "@/data/types/gateway";
 import ListRow from "./list-row";
 import ListHeader from "./list-header";
 import ListFilterSort from "./list-filter-sort";

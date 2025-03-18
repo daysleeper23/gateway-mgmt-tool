@@ -1,5 +1,10 @@
 // import ListView from "./list/list-view";
-import { TanstackListView } from "./tanstack/tanstack-list-view";
+import { Route, Routes } from "react-router";
+import TanstackListView from "./list/tanstack/tanstack-list-view";
+import { lazy } from "react";
+import StatisticsView from "./statistics/statistics-view";
+
+const ListView = lazy(() => import("./list/raw/list-view"));
 
 const App = () => {
   return (
@@ -8,8 +13,11 @@ const App = () => {
         <h1 className="text-3xl font-black">Wirepas Gateway Management Tool</h1>
       </div>
       <div className="flex-1 overflow-hidden relative w-full">
-        {/* <ListView /> */}
-        <TanstackListView />
+        <Routes>
+          <Route path="/" element={<TanstackListView />} />
+          <Route path="/:uuid" element={<StatisticsView />} />
+          <Route path="/list" element={<ListView />} />
+        </Routes>
       </div>
     </div>
   );
