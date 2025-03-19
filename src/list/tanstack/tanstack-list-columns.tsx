@@ -21,7 +21,7 @@ export const columns: ColumnDef<Gateway>[] = [
   },
   {
     accessorKey: "status",
-    header: () => (<div className="capitalize w-20">Status</div>),
+    header: () => <div className="capitalize w-20">Status</div>,
     cell: ({ row }) => (
       <div className="capitalize w-20">{row.getValue("status")}</div>
     ),

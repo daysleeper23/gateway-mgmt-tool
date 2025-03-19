@@ -1,10 +1,9 @@
-// import ListView from "./list/list-view";
 import { Route, Routes } from "react-router";
 import TanstackListView from "./list/tanstack/tanstack-list-view";
 import { lazy } from "react";
-import StatisticsView from "./statistics/statistics-view";
 
 const ListView = lazy(() => import("./list/raw/list-view"));
+const StatisticsView = lazy(() => import("./statistics/statistics-view"));
 
 const App = () => {
   return (
@@ -17,6 +16,7 @@ const App = () => {
           <Route path="/" element={<TanstackListView />} />
           <Route path="/:uuid" element={<StatisticsView />} />
           <Route path="/list" element={<ListView />} />
+          <Route path="/*" element={<TanstackListView />} />
         </Routes>
       </div>
     </div>

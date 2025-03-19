@@ -1,6 +1,20 @@
 import z from "zod";
 
-export const GatewayStatusEnum = z.enum(["ACTIVE", "INACTIVE", "UNSTABLE", "OFFLINE", "UNAVAILABLE"]);
+export const mapStatusToNumeric = {
+  ACTIVE: 4,
+  UNSTABLE: 3,
+  INACTIVE: 2,
+  UNAVAILABLE: 1,
+  OFFLINE: 0,
+};
+
+export const GatewayStatusEnum = z.enum([
+  "ACTIVE",
+  "UNSTABLE",
+  "INACTIVE",
+  "OFFLINE",
+  "UNAVAILABLE",
+]);
 export type GatewayStatus = z.infer<typeof GatewayStatusEnum>;
 
 export const GatewaySchema = z.object({
@@ -36,9 +50,11 @@ export const GatewayStatusTransitionCountsSchema = z.object({
   unstableToOffline: z.number().min(0),
   offlineToActive: z.number().min(0),
 });
-export type GatewayStatusTransitionCounts = z.infer<typeof GatewayStatusTransitionCountsSchema>;
+export type GatewayStatusTransitionCounts = z.infer<
+  typeof GatewayStatusTransitionCountsSchema
+>;
 
-export const GatewayDetailSummarySchema = z.object({
+export const GatewayStatsSummarySchema = z.object({
   startTime: z.number().min(0),
   endTime: z.number().min(0),
   startTimeStatus: GatewayStatusEnum,
@@ -46,18 +62,20 @@ export const GatewayDetailSummarySchema = z.object({
   timeInStatusesS: GatewayTimeInStatusSchema,
   statusTransitionCounts: GatewayStatusTransitionCountsSchema,
 });
-export type GatewayDetailSummary = z.infer<typeof GatewayDetailSummarySchema>;
+export type GatewayStatsSummary = z.infer<typeof GatewayStatsSummarySchema>;
 
 export const GatewayStatusChangeEventSchema = z.object({
   statusChangeTime: z.number(),
   status: GatewayStatusEnum,
 });
-export type GatewayStatusChangeEvent = z.infer<typeof GatewayStatusChangeEventSchema>;
+export type GatewayStatusChangeEvent = z.infer<
+  typeof GatewayStatusChangeEventSchema
+>;
 
-export const GatewayDetailSchema = z.object({
+export const GatewayStatsSchema = z.object({
   snapshotTime: z.number().min(0),
-  summary: GatewayDetailSummarySchema,
-  historySamples: z.array(GatewayDetailSummarySchema),
+  summary: GatewayStatsSummarySchema,
+  historySamples: z.array(GatewayStatsSummarySchema),
   statusChangeEvents: z.array(GatewayStatusChangeEventSchema),
 });
-export type GatewayDetail = z.infer<typeof GatewayDetailSchema>;
+export type GatewayStats = z.infer<typeof GatewayStatsSchema>;
