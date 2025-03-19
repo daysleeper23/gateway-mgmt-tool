@@ -2,7 +2,7 @@ import { Table } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
 
-import { models, statuses, versions } from "@/mock-data/common";
+import { models, statuses, versions } from "@/data/mock/common";
 import { TanstackListFilter } from "./tanstack-list-filter";
 import { X } from "lucide-react";
 
