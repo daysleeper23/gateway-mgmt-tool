@@ -6,6 +6,7 @@ import gatewayStat from "@/data/mock/single_gateway_stats.json";
 export interface GatewayStore {
   gatewayStat: GatewayStats;
   gateways: Gateway[];
+  sinkNodes: string[];
   getGateway: (uuid: string) => Gateway | undefined;
   updateGateway: (gateway: Gateway) => void;
   sortByLastMessageRxTime: () => void;
@@ -19,6 +20,7 @@ export const useGatewayStore = create<GatewayStore>((set, get) => ({
       b.gatewayStatistics.lastMessageRxTime -
       a.gatewayStatistics.lastMessageRxTime,
   ) as Gateway[],
+  sinkNodes: gateways.results.map((g) => g.sinkNodes).flat(),
 
   updateGateway: (gateway: Gateway) =>
     set((state: { gateways: Gateway[] }) => ({

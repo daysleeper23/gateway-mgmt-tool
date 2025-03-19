@@ -13,7 +13,6 @@ import TimeInStatus from "./time-in-status";
 import StatusTransitions from "./status-transition-count";
 import { StatusTransitionChart } from "./status-transition-chart";
 import HistorySamplesChart from "./history-samples-chart";
-// import { StatusTransitionCountChart } from "./status-transition-count-chart";
 
 const StatisticsView = () => {
   const uuid = useParams<{ uuid: string }>().uuid;

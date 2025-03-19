@@ -24,7 +24,6 @@ import { useGatewayStore } from "@/data/store/gateway-store";
 
 import { TanstackListToolbar } from "./tanstack-list-toolbar";
 import { columns } from "./tanstack-list-columns";
-import { useNavigate } from "react-router";
 
 const TanstackListView = () => {
   const data = useGatewayStore((state) => state.gateways);
@@ -52,8 +51,6 @@ const TanstackListView = () => {
       rowSelection,
     },
   });
-
-  const navigate = useNavigate();
 
   return (
     <div className="w-full" data-testid="list-view">
@@ -86,7 +83,6 @@ const TanstackListView = () => {
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                   data-testid="list-row"
-                  onClick={() => navigate(`/${row.original.uuid}`)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

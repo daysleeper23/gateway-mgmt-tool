@@ -20,7 +20,7 @@ export type GatewayStatus = z.infer<typeof GatewayStatusEnum>;
 export const GatewaySchema = z.object({
   uuid: z.string().uuid(),
   modificationTime: z.number().min(0),
-  description: z.string(),
+  description: z.string().nonempty({ message: "Description cannot be empty." }),
   gatewayId: z.string(),
   networkUuid: z.string().uuid(),
   sinkNodes: z.array(z.string()),
