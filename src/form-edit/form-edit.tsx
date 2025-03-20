@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/dialog";
 import { GatewaySchema } from "@/data/types/gateway";
 import { useGatewayStore } from "@/data/store/gateway-store";
+import SelectMultiple from "@/components/ui/select-multiple";
 
 const editFormSchema = GatewaySchema.pick({
   description: true,
@@ -37,10 +38,9 @@ interface FormEditProps {
 }
 
 const FormEdit = ({ uuid, trigger, open, onClose }: FormEditProps) => {
-  // const [isOpen, setIsOpen] = useState(open);
-
   const gateway = useGatewayStore((state) => state.getGateway(uuid))!;
   const updateGateway = useGatewayStore((state) => state.updateGateway);
+  const sinkNodesOptions = useGatewayStore((state) => state.sinkNodes);
 
   const form = useForm<z.infer<typeof editFormSchema>>({
     resolver: zodResolver(editFormSchema),
@@ -52,7 +52,6 @@ const FormEdit = ({ uuid, trigger, open, onClose }: FormEditProps) => {
 
   const onSubmit = (values: z.infer<typeof editFormSchema>) => {
     updateGateway({ ...gateway, ...values });
-    // setIsOpen(false);
     onClose();
   };
 
@@ -60,7 +59,6 @@ const FormEdit = ({ uuid, trigger, open, onClose }: FormEditProps) => {
     <Dialog
       open={open}
       onOpenChange={() => {
-        // setIsOpen(value);
         onClose();
       }}
     >
@@ -91,11 +89,37 @@ const FormEdit = ({ uuid, trigger, open, onClose }: FormEditProps) => {
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="sinkNodes"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Sink Nodes</FormLabel>
+                  <FormControl>
+                    <SelectMultiple
+                      title="Select sink nodes..."
+                      options={sinkNodesOptions}
+                      value={field.value}
+                      onChange={field.onChange}
+                      data-testid="form-edit-sink-nodes"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <div className="flex justify-end gap-2">
               <Button data-testid="form-edit-submit" type="submit">
                 Save
               </Button>
-              <Button data-testid="form-edit-cancel" type="button" variant="outline" onClick={onClose}>
+              <Button
+                data-testid="form-edit-cancel"
+                type="button"
+                variant="outline"
+                onClick={onClose}
+              >
                 Cancel
               </Button>
             </div>

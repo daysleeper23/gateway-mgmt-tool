@@ -79,3 +79,9 @@ export const GatewayStatsSchema = z.object({
   statusChangeEvents: z.array(GatewayStatusChangeEventSchema),
 });
 export type GatewayStats = z.infer<typeof GatewayStatsSchema>;
+
+export const GatewaySinkNodeSchema = z.object({
+  label: z.string(),
+  value: z.string().uuid(),
+});
+export type GatewaySinkNode = z.infer<typeof GatewaySinkNodeSchema>;
