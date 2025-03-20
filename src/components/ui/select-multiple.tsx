@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
 import { Check } from "lucide-react";
-import { ScrollArea } from "./scroll-area";
 
 interface SelectMultipleProps {
   value: string[];
@@ -29,6 +28,8 @@ interface SelectMultipleProps {
     icon?: React.ComponentType<{ className?: string }>;
   }[];
 }
+
+const MAXIMUM_EXPAND_NODE = 13;
 
 const SelectMultiple = ({
   value,
@@ -45,13 +46,16 @@ const SelectMultiple = ({
     } else {
       newSelected.add(optionValue);
     }
-    onChange(Array.from(newSelected)); // Notify parent of the updated selection
+    onChange(Array.from(newSelected));
   };
 
   return (
-    <Popover>
+    <Popover modal={true}>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="flex justify-start">
+        <Button
+          variant="outline"
+          className="flex justify-start aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
+        >
           {selectedValues?.size <= 0 && title}
           {selectedValues?.size > 0 && (
             <div data-testid="select-multiple-selected">
@@ -63,7 +67,7 @@ const SelectMultiple = ({
                 {selectedValues.size}
               </Badge>
               <div className="hidden space-x-1 lg:flex">
-                {selectedValues.size > 2 ? (
+                {selectedValues.size > MAXIMUM_EXPAND_NODE ? (
                   <Badge
                     variant="secondary"
                     className="rounded-sm px-1 font-normal"
@@ -97,6 +101,7 @@ const SelectMultiple = ({
           <CommandInput placeholder={title} />
           <CommandList className="h-72">
             <CommandEmpty>No results found.</CommandEmpty>
+
             <CommandGroup>
               {options.map((option) => {
                 const isSelected = selectedValues.has(option.value);

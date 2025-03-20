@@ -21,8 +21,8 @@ export const useGatewayStore = create<GatewayStore>((set, get) => ({
       a.gatewayStatistics.lastMessageRxTime,
   ) as Gateway[],
   sinkNodes: [...new Set(gateways.results.map((g) => g.sinkNodes).flat())].map(
-    (node) => ({
-      label: node,
+    (node, index) => ({
+      label: "Sink " + index,
       value: node,
     }),
   ) as GatewaySinkNode[],

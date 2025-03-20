@@ -23,7 +23,9 @@ export const GatewaySchema = z.object({
   description: z.string().nonempty({ message: "Description cannot be empty." }),
   gatewayId: z.string(),
   networkUuid: z.string().uuid(),
-  sinkNodes: z.array(z.string()),
+  sinkNodes: z
+    .array(z.string())
+    .min(2, { message: "At least 2 sink nodes are required." }),
   model: z.string(),
   version: z.string(),
   status: GatewayStatusEnum,
