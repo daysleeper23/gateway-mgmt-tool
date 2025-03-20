@@ -38,7 +38,7 @@ export function StatusTransitionChart({
   const endDate = formatTimeUS(chartData[chartData.length - 1].time as number);
 
   return (
-    <Card className="shadow-none">
+    <Card className="shadow-none rounded-sm">
       <CardHeader>
         <CardTitle>Status Transitions</CardTitle>
         <CardDescription>
@@ -118,7 +118,7 @@ const CustomTooltip = ({ active, payload }: TooltipProps<number, string>) => {
       ) || "Unknown";
 
     return (
-      <div className="border-border/50 bg-background grid min-w-[8rem] items-start gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl">
+      <div className="border-border/50 bg-background grid min-w-[8rem] items-start gap-1.5 rounded-sm border px-2.5 py-1.5 text-xs shadow-xl">
         <p className="text-xs font-medium flex gap-1.5">
           <strong>Status:</strong> {statusLabel}
         </p>

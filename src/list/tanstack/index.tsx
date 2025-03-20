@@ -26,6 +26,7 @@ import TanstackListToolbar from "./tanstack-list-toolbar";
 import { columns } from "./tanstack-list-columns";
 
 const TanstackListView = () => {
+  
   const data = useGatewayStore((state) => state.gateways);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -56,7 +57,10 @@ const TanstackListView = () => {
     <div className="flex-1 flex flex-col" data-testid="list-view">
       <TanstackListToolbar table={table} />
       <Table>
-        <TableHeader className="bg-muted sticky top-0 z-10 border-b" data-testid="list-header">
+        <TableHeader
+          className="bg-muted sticky top-0 z-10 border-b"
+          data-testid="list-header"
+        >
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
@@ -78,27 +82,21 @@ const TanstackListView = () => {
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
-                className="px-6"
+                className="px-6 text-primary/85 hover:bg-muted/50"
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
                 data-testid="list-row"
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
-                    {flexRender(
-                      cell.column.columnDef.cell,
-                      cell.getContext(),
-                    )}
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
               </TableRow>
             ))
           ) : (
             <TableRow>
-              <TableCell
-                colSpan={columns.length}
-                className="h-24 text-center"
-              >
+              <TableCell colSpan={columns.length} className="h-24 text-center">
                 No results.
               </TableCell>
             </TableRow>

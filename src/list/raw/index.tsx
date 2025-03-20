@@ -10,7 +10,7 @@ const ListView = () => {
   );
 
   return (
-    <>
+    <div className="flex-1 flex flex-col">
       <ListFilterSort />
       <ListHeader />
       <div data-testid="list-view" className="flex-1 overflow-y-auto relative">
@@ -20,7 +20,7 @@ const ListView = () => {
           })}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default ListView;

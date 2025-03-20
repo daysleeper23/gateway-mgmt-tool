@@ -21,7 +21,7 @@ const StatusTransitions = ({
   statusTransitionCounts: GatewayStatusTransitionCounts;
 }) => {
   return (
-    <Card className="shadow-none">
+    <Card className="shadow-none rounded-sm">
       <CardHeader>
         <CardTitle>Status Transition Counts</CardTitle>
         <CardDescription>Number of status change per type</CardDescription>

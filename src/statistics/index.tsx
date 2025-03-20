@@ -8,30 +8,21 @@ import {
 import { useGatewayStore } from "@/data/store/gateway-store";
 import { GatewayStatus, mapStatusToNumeric } from "@/data/types/gateway";
 import { formatTimeUS } from "@/list/utils";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import TimeInStatus from "./time-in-status";
 import StatusTransitions from "./status-transition-count";
 import { StatusTransitionChart } from "./status-transition-chart";
 import HistorySamplesChart from "./history-samples-chart";
-import { Button } from "@/components/ui/button";
+import DeviceInfo from "./device-info";
+import NotFoundView from "@/layout/404";
 
 const StatisticsView = () => {
-  const navigate = useNavigate();
   const uuid = useParams<{ uuid: string }>().uuid!;
   const gateway = useGatewayStore((state) => state.getGateway(uuid));
   if (!gateway) {
-    return (
-      <div className="flex flex-col flex-1 h-full w-full gap-4 items-center justify-center bg-gray-50">
-        <h1>Gateway not found!</h1>
-        <Button
-          onClick={() => navigate("/")}
-        >
-          Go back
-        </Button>
-      </div>
-    )
+    return <NotFoundView />;
   }
-  
+
   const {
     snapshotTime,
     summary: {
@@ -54,17 +45,8 @@ const StatisticsView = () => {
     .sort((a, b) => a.time - b.time);
 
   return (
-    <div className="p-6 space-y-6 bg-gray-50">
-      <div className="flex justify-between items-center">
-        <div className="flex gap-4">
-          <h1 className="text-lg font-bold">Device UUID: </h1>
-          <h1 className="text-lg">{uuid}</h1>
-        </div>
-        <div className="flex items-center gap-4 mt-4">
-          <p className="text-lg font-semibold">Snapshot Time:</p>
-          <p className="text-muted-foreground">{formatTimeUS(snapshotTime)}</p>
-        </div>
-      </div>
+    <div className="bg-gray-50 flex-1 gap-4 flex flex-col overflow-y-auto p-4">
+      <DeviceInfo uuid={uuid} snapshotTime={snapshotTime} />
 
       <div className="grid grid-cols-2 gap-4">
         <StatusCard
@@ -116,7 +98,10 @@ const StatusCard = ({
   endTimeStatus: GatewayStatus;
 }) => {
   return (
-    <Card data-testid="statistics-view-summary" className="shadow-none">
+    <Card
+      data-testid="statistics-view-summary"
+      className="shadow-none rounded-sm"
+    >
       <CardHeader>
         <CardTitle>Status</CardTitle>
         <CardDescription>

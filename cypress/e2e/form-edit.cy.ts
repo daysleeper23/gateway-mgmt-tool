@@ -35,10 +35,12 @@ describe("Form Edit - Submit", () => {
     cy.get('[data-testid="select-multiple-trigger"]').first().click();
     cy.wait(500);
     cy.get('[data-testid="select-multiple-dropdown"]')
-      .contains("Sink 6").click();
+      .contains("Sink 6")
+      .click();
     cy.get('[data-testid="select-multiple-dropdown"]')
-      .contains("Sink 7").click();
-    cy.get('body').click(10, 10);
+      .contains("Sink 7")
+      .click();
+    cy.get("body").click(10, 10);
     cy.wait(500);
     cy.get('[data-testid="form-edit-submit"]').click();
     cy.wait(500);
@@ -81,8 +83,9 @@ describe("Form Edit - Submit", () => {
     cy.get('[data-testid="select-multiple-trigger"]').first().click();
     cy.wait(500);
     cy.get('[data-testid="select-multiple-dropdown"]')
-      .contains("Sink 1").click();
-    cy.get('body').click(10, 10);
+      .contains("Sink 1")
+      .click();
+    cy.get("body").click(10, 10);
     cy.wait(500);
     cy.get('[data-testid="form-edit-submit"]').click();
     cy.wait(500);
@@ -107,10 +110,12 @@ describe("Form Edit - Submit", () => {
     cy.get('[data-testid="select-multiple-trigger"]').first().click();
     cy.wait(500);
     cy.get('[data-testid="select-multiple-dropdown"]')
-      .contains("Sink 6").click();
+      .contains("Sink 6")
+      .click();
     cy.get('[data-testid="select-multiple-dropdown"]')
-      .contains("Sink 7").click();
-    cy.get('body').click(10, 10);
+      .contains("Sink 7")
+      .click();
+    cy.get("body").click(10, 10);
     cy.wait(500);
     cy.get('[data-testid="form-edit-cancel"]').click();
     cy.wait(500);

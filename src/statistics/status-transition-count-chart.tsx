@@ -38,7 +38,7 @@ export function StatusTransitionCountChart({
   const endDate = formatTimeUS(chartData[chartData.length - 1].time as number);
 
   return (
-    <Card className="shadow-none">
+    <Card className="shadow-none rounded-sm">
       <CardHeader>
         <CardTitle>Status Transitions</CardTitle>
         <CardDescription>
