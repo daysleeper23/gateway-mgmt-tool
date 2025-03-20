@@ -21,12 +21,16 @@ const App = () => {
             <HeaderBar />
             <div className="flex flex-1 overflow-hidden relative w-full">
               <ErrorBoundary fallback={<NotFoundView />}>
-                <Suspense fallback={<LoadingView message="Loading gateway data..." />}>
+                <Suspense
+                  fallback={<LoadingView message="Loading gateway data..." />}
+                >
                   <Routes>
                     <Route path="/" element={<TanstackListView />} />
                     <Route
                       path="/loading"
-                      element={<LoadingView message="Loading gateway data..." />}
+                      element={
+                        <LoadingView message="Loading gateway data..." />
+                      }
                     />
                     <Route path="/404" element={<NotFoundView />} />
                     <Route path="/:uuid" element={<StatisticsView />} />
