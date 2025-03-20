@@ -56,7 +56,10 @@ const TanstackListView = () => {
     <div className="flex-1 flex flex-col" data-testid="list-view">
       <TanstackListToolbar table={table} />
       <Table>
-        <TableHeader className="bg-muted sticky top-0 z-10 border-b" data-testid="list-header">
+        <TableHeader
+          className="bg-muted sticky top-0 z-10 border-b"
+          data-testid="list-header"
+        >
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
@@ -85,20 +88,14 @@ const TanstackListView = () => {
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
-                    {flexRender(
-                      cell.column.columnDef.cell,
-                      cell.getContext(),
-                    )}
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
               </TableRow>
             ))
           ) : (
             <TableRow>
-              <TableCell
-                colSpan={columns.length}
-                className="h-24 text-center"
-              >
+              <TableCell colSpan={columns.length} className="h-24 text-center">
                 No results.
               </TableCell>
             </TableRow>

@@ -56,7 +56,9 @@ const FormEdit = ({ uuid, trigger, open, onClose }: FormEditProps) => {
       form.getValues().description === gateway.description &&
       form.getValues().sinkNodes.toString() === gateway.sinkNodes.toString()
     ) {
-      toast.info("Gateway data is the same as before. No changes have been made.");
+      toast.info(
+        "Gateway data is the same as before. No changes have been made.",
+      );
       onClose();
       return;
     }
