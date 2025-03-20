@@ -26,6 +26,7 @@ import TanstackListToolbar from "./tanstack-list-toolbar";
 import { columns } from "./tanstack-list-columns";
 
 const TanstackListView = () => {
+  
   const data = useGatewayStore((state) => state.gateways);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -81,7 +82,7 @@ const TanstackListView = () => {
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
-                className="px-6"
+                className="px-6 text-primary/85 hover:bg-muted/50"
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
                 data-testid="list-row"

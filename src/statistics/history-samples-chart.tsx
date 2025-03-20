@@ -59,7 +59,7 @@ const HistorySamplesChart = ({
   const endDate = data[data.length - 1].time;
 
   return (
-    <Card className="shadow-none">
+    <Card className="shadow-none rounded-sm">
       <CardHeader>
         <CardTitle>Gateway Status History</CardTitle>
         <CardDescription>

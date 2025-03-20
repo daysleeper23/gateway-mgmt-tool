@@ -14,7 +14,7 @@ const TimeInStatus = ({
   timeInStatuses: GatewayTimeInStatus;
 }) => {
   return (
-    <Card className="shadow-none">
+    <Card className="shadow-none rounded-sm">
       <CardHeader>
         <CardTitle>Time in Statuses (seconds)</CardTitle>
         <CardDescription>

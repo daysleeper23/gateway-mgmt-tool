@@ -8,9 +8,9 @@ import { TanstackListRowAction } from "./tanstack-list-row-action";
 export const columns: ColumnDef<Gateway>[] = [
   {
     accessorKey: "gatewayId",
-    header: "Gateway ID",
+    header: () => <div className="pl-4">Gateway ID</div>,
     cell: ({ row }) => (
-      <div className="w-40 truncate">{row.getValue("gatewayId")}</div>
+      <div className="pl-4 w-40 truncate">{row.getValue("gatewayId")}</div>
     ),
   },
   {
