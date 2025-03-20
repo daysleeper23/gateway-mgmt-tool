@@ -1,4 +1,5 @@
 import z from "zod";
+import { ErrorMessages } from "../mock/common";
 
 export const mapStatusToNumeric = {
   ACTIVE: 4,
@@ -20,10 +21,14 @@ export type GatewayStatus = z.infer<typeof GatewayStatusEnum>;
 export const GatewaySchema = z.object({
   uuid: z.string().uuid(),
   modificationTime: z.number().min(0),
-  description: z.string(),
+  description: z
+    .string()
+    .nonempty({ message: ErrorMessages.DESCRIPTION_EMPTY }),
   gatewayId: z.string(),
   networkUuid: z.string().uuid(),
-  sinkNodes: z.array(z.string()),
+  sinkNodes: z
+    .array(z.string())
+    .min(2, { message: ErrorMessages.SINK_MINIMUM }),
   model: z.string(),
   version: z.string(),
   status: GatewayStatusEnum,
@@ -79,3 +84,9 @@ export const GatewayStatsSchema = z.object({
   statusChangeEvents: z.array(GatewayStatusChangeEventSchema),
 });
 export type GatewayStats = z.infer<typeof GatewayStatsSchema>;
+
+export const GatewaySinkNodeSchema = z.object({
+  label: z.string(),
+  value: z.string().uuid(),
+});
+export type GatewaySinkNode = z.infer<typeof GatewaySinkNodeSchema>;

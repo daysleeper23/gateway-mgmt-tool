@@ -35,7 +35,6 @@ const HistorySamplesChart = ({
     UNSTABLE: sample.timeInStatusesS.unstable,
     OFFLINE: sample.timeInStatusesS.offline,
   }));
-  console.log("object", data);
 
   const chartConfig = {
     ACTIVE: {

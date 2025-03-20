@@ -3,14 +3,14 @@ import { Table } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 
 import { models, statuses, versions } from "@/data/mock/common";
-import { TanstackListFilter } from "./tanstack-list-filter";
+import TanstackListFilter from "./tanstack-list-filter";
 import { X } from "lucide-react";
 
 interface TanstackListToolbarProps<TData> {
   table: Table<TData>;
 }
 
-export function TanstackListToolbar<TData>({
+function TanstackListToolbar<TData>({
   table,
 }: TanstackListToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
@@ -18,7 +18,7 @@ export function TanstackListToolbar<TData>({
   return (
     <div
       data-testid="list-toolbar"
-      className="flex gap-4 items-center justify-between px-6 py-3"
+      className="flex gap-4 items-center justify-between px-6 py-3 border-b"
     >
       <div className="text-sm font-medium">Filter</div>
       <div className="flex flex-1 items-center space-x-2">
@@ -64,3 +64,4 @@ export function TanstackListToolbar<TData>({
     </div>
   );
 }
+export default TanstackListToolbar;

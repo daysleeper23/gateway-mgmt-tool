@@ -1,11 +1,12 @@
 import { create } from "zustand";
-import { Gateway, GatewayStats } from "../types/gateway";
+import { Gateway, GatewaySinkNode, GatewayStats } from "../types/gateway";
 import gateways from "@/data/mock/gateway_listing_response.json";
 import gatewayStat from "@/data/mock/single_gateway_stats.json";
 
 export interface GatewayStore {
   gatewayStat: GatewayStats;
   gateways: Gateway[];
+  sinkNodes: GatewaySinkNode[];
   getGateway: (uuid: string) => Gateway | undefined;
   updateGateway: (gateway: Gateway) => void;
   sortByLastMessageRxTime: () => void;
@@ -19,6 +20,12 @@ export const useGatewayStore = create<GatewayStore>((set, get) => ({
       b.gatewayStatistics.lastMessageRxTime -
       a.gatewayStatistics.lastMessageRxTime,
   ) as Gateway[],
+  sinkNodes: [...new Set(gateways.results.map((g) => g.sinkNodes).flat())].map(
+    (node, index) => ({
+      label: "Sink " + index,
+      value: node,
+    }),
+  ) as GatewaySinkNode[],
 
   updateGateway: (gateway: Gateway) =>
     set((state: { gateways: Gateway[] }) => ({

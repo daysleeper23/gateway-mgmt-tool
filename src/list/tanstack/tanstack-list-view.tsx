@@ -22,9 +22,8 @@ import {
 
 import { useGatewayStore } from "@/data/store/gateway-store";
 
-import { TanstackListToolbar } from "./tanstack-list-toolbar";
+import TanstackListToolbar from "./tanstack-list-toolbar";
 import { columns } from "./tanstack-list-columns";
-import { useNavigate } from "react-router";
 
 const TanstackListView = () => {
   const data = useGatewayStore((state) => state.gateways);
@@ -53,64 +52,59 @@ const TanstackListView = () => {
     },
   });
 
-  const navigate = useNavigate();
-
   return (
-    <div className="w-full" data-testid="list-view">
+    <div className="flex-1 flex flex-col" data-testid="list-view">
       <TanstackListToolbar table={table} />
-      <div className="border flex-1 overflow-y-auto">
-        <Table>
-          <TableHeader className="bg-muted" data-testid="list-header">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                    </TableHead>
-                  );
-                })}
+      <Table>
+        <TableHeader className="bg-muted sticky top-0 z-10 border-b" data-testid="list-header">
+          {table.getHeaderGroups().map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                return (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                  </TableHead>
+                );
+              })}
+            </TableRow>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows?.length ? (
+            table.getRowModel().rows.map((row) => (
+              <TableRow
+                className="px-6"
+                key={row.id}
+                data-state={row.getIsSelected() && "selected"}
+                data-testid="list-row"
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell key={cell.id}>
+                    {flexRender(
+                      cell.column.columnDef.cell,
+                      cell.getContext(),
+                    )}
+                  </TableCell>
+                ))}
               </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  className="px-6"
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                  data-testid="list-row"
-                  onClick={() => navigate(`/${row.original.uuid}`)}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  No results.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell
+                colSpan={columns.length}
+                className="h-24 text-center"
+              >
+                No results.
+              </TableCell>
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
     </div>
   );
 };

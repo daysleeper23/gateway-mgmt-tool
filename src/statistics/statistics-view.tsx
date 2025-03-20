@@ -8,15 +8,30 @@ import {
 import { useGatewayStore } from "@/data/store/gateway-store";
 import { GatewayStatus, mapStatusToNumeric } from "@/data/types/gateway";
 import { formatTimeUS } from "@/list/utils";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import TimeInStatus from "./time-in-status";
 import StatusTransitions from "./status-transition-count";
 import { StatusTransitionChart } from "./status-transition-chart";
 import HistorySamplesChart from "./history-samples-chart";
-// import { StatusTransitionCountChart } from "./status-transition-count-chart";
+import { Button } from "@/components/ui/button";
 
 const StatisticsView = () => {
-  const uuid = useParams<{ uuid: string }>().uuid;
+  const navigate = useNavigate();
+  const uuid = useParams<{ uuid: string }>().uuid!;
+  const gateway = useGatewayStore((state) => state.getGateway(uuid));
+  if (!gateway) {
+    return (
+      <div className="flex flex-col flex-1 h-full w-full gap-4 items-center justify-center bg-gray-50">
+        <h1>Gateway not found!</h1>
+        <Button
+          onClick={() => navigate("/")}
+        >
+          Go back
+        </Button>
+      </div>
+    )
+  }
+  
   const {
     snapshotTime,
     summary: {
@@ -39,7 +54,7 @@ const StatisticsView = () => {
     .sort((a, b) => a.time - b.time);
 
   return (
-    <div className="p-6 space-y-6 bg-gray-50 min-h-screen">
+    <div className="p-6 space-y-6 bg-gray-50">
       <div className="flex justify-between items-center">
         <div className="flex gap-4">
           <h1 className="text-lg font-bold">Device UUID: </h1>

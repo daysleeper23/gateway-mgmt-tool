@@ -1,23 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { Gateway } from "@/data/types/gateway";
-import { formatTimeCA } from "@/list/utils";
+import { formatTimeUS } from "@/list/utils";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowDown, ArrowUp } from "lucide-react";
+import { TanstackListRowAction } from "./tanstack-list-row-action";
 
 export const columns: ColumnDef<Gateway>[] = [
   {
     accessorKey: "gatewayId",
     header: "Gateway ID",
     cell: ({ row }) => (
-      <div className="capitalize w-48">{row.getValue("gatewayId")}</div>
+      <div className="w-40 truncate">{row.getValue("gatewayId")}</div>
     ),
   },
   {
     accessorKey: "description",
     header: "Description",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("description")}</div>
-    ),
+    cell: ({ row }) => <div>{row.getValue("description")}</div>,
   },
   {
     accessorKey: "status",
@@ -33,7 +32,7 @@ export const columns: ColumnDef<Gateway>[] = [
     accessorKey: "model",
     header: "Model",
     cell: ({ row }) => (
-      <div className="capitalize w-32">{row.getValue("model")}</div>
+      <div className="capitalize w-32 truncate">{row.getValue("model")}</div>
     ),
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
@@ -44,6 +43,20 @@ export const columns: ColumnDef<Gateway>[] = [
     header: "Version",
     cell: ({ row }) => (
       <div className="capitalize">{row.getValue("version")}</div>
+    ),
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: "sinkNodes",
+    header: "Sink",
+    cell: ({ row }) => (
+      <div>
+        {row.original.sinkNodes.length +
+          " node" +
+          (row.original.sinkNodes.length === 1 ? "" : "s")}
+      </div>
     ),
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
@@ -67,8 +80,12 @@ export const columns: ColumnDef<Gateway>[] = [
     },
     cell: ({ getValue }) => {
       return (
-        <div className="capitalize">{formatTimeCA(getValue() as number)}</div>
+        <div className="capitalize">{formatTimeUS(getValue() as number)}</div>
       );
     },
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => <TanstackListRowAction uuid={row.original.uuid} />,
   },
 ];
