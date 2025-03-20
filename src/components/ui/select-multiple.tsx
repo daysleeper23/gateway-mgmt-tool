@@ -53,12 +53,13 @@ const SelectMultiple = ({
     <Popover modal={true}>
       <PopoverTrigger asChild>
         <Button
+          data-testid="select-multiple-trigger"
           variant="outline"
           className="flex justify-start aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
         >
           {selectedValues?.size <= 0 && title}
           {selectedValues?.size > 0 && (
-            <div data-testid="select-multiple-selected">
+            <div>
               <Separator orientation="vertical" className="mx-2 h-4" />
               <Badge
                 variant="secondary"

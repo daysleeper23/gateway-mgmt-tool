@@ -18,7 +18,7 @@ function TanstackListToolbar<TData>({
   return (
     <div
       data-testid="list-toolbar"
-      className="flex gap-4 items-center justify-between px-6 py-3"
+      className="flex gap-4 items-center justify-between px-6 py-3 border-b"
     >
       <div className="text-sm font-medium">Filter</div>
       <div className="flex flex-1 items-center space-x-2">

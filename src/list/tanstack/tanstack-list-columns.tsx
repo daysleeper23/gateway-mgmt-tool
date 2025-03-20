@@ -52,7 +52,11 @@ export const columns: ColumnDef<Gateway>[] = [
     accessorKey: "sinkNodes",
     header: "Sink",
     cell: ({ row }) => (
-      <div>{row.original.sinkNodes.length + " node" + (row.original.sinkNodes.length === 1 ? "" : "s")}</div>
+      <div>
+        {row.original.sinkNodes.length +
+          " node" +
+          (row.original.sinkNodes.length === 1 ? "" : "s")}
+      </div>
     ),
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));

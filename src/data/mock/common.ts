@@ -49,3 +49,8 @@ export const versions = [
     label: "1.4.4.3",
   },
 ];
+
+export const ErrorMessages = {
+  DESCRIPTION_EMPTY: "Description cannot be empty.",
+  SINK_MINIMUM: "At least 2 sink nodes are required.",
+};

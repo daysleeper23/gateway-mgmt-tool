@@ -1,4 +1,5 @@
 import z from "zod";
+import { ErrorMessages } from "../mock/common";
 
 export const mapStatusToNumeric = {
   ACTIVE: 4,
@@ -20,12 +21,14 @@ export type GatewayStatus = z.infer<typeof GatewayStatusEnum>;
 export const GatewaySchema = z.object({
   uuid: z.string().uuid(),
   modificationTime: z.number().min(0),
-  description: z.string().nonempty({ message: "Description cannot be empty." }),
+  description: z
+    .string()
+    .nonempty({ message: ErrorMessages.DESCRIPTION_EMPTY }),
   gatewayId: z.string(),
   networkUuid: z.string().uuid(),
   sinkNodes: z
     .array(z.string())
-    .min(2, { message: "At least 2 sink nodes are required." }),
+    .min(2, { message: ErrorMessages.SINK_MINIMUM }),
   model: z.string(),
   version: z.string(),
   status: GatewayStatusEnum,

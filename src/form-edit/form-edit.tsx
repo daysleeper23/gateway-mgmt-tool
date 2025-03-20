@@ -23,6 +23,7 @@ import {
 import { GatewaySchema } from "@/data/types/gateway";
 import { useGatewayStore } from "@/data/store/gateway-store";
 import SelectMultiple from "@/components/ui/select-multiple";
+import { toast } from "sonner";
 
 const editFormSchema = GatewaySchema.pick({
   description: true,
@@ -51,8 +52,23 @@ const FormEdit = ({ uuid, trigger, open, onClose }: FormEditProps) => {
   });
 
   const onSubmit = (values: z.infer<typeof editFormSchema>) => {
-    updateGateway({ ...gateway, ...values });
-    onClose();
+    if (
+      form.getValues().description === gateway.description &&
+      form.getValues().sinkNodes.toString() === gateway.sinkNodes.toString()
+    ) {
+      toast.info("Gateway data is the same as before. No changes have been made.");
+      onClose();
+      return;
+    }
+
+    try {
+      updateGateway({ ...gateway, ...values });
+      onClose();
+      toast.success("Gateway updated successfully.");
+    } catch (error) {
+      toast.error("Failed to update gateway.");
+      console.error(error);
+    }
   };
 
   return (
@@ -111,7 +127,14 @@ const FormEdit = ({ uuid, trigger, open, onClose }: FormEditProps) => {
             />
 
             <div className="flex justify-end gap-2">
-              <Button data-testid="form-edit-submit" type="submit">
+              <Button
+                data-testid="form-edit-submit"
+                type="submit"
+                disabled={
+                  form.getValues().description === gateway.description &&
+                  form.getValues().sinkNodes === gateway.sinkNodes
+                }
+              >
                 Save
               </Button>
               <Button
