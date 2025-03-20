@@ -26,7 +26,6 @@ import TanstackListToolbar from "./tanstack-list-toolbar";
 import { columns } from "./tanstack-list-columns";
 
 const TanstackListView = () => {
-  
   const data = useGatewayStore((state) => state.gateways);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
