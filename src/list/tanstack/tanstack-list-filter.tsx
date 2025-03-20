@@ -31,11 +31,11 @@ interface TanstackListFilterProps<TData, TValue> {
   }[];
 }
 
-export function TanstackListFilter<TData, TValue>({
+const TanstackListFilter = <TData, TValue>({
   column,
   title,
   options,
-}: TanstackListFilterProps<TData, TValue>) {
+}: TanstackListFilterProps<TData, TValue>) => {
   const facets = column?.getFacetedUniqueValues();
   const selectedValues = new Set(column?.getFilterValue() as string[]);
 
@@ -146,4 +146,5 @@ export function TanstackListFilter<TData, TValue>({
       </PopoverContent>
     </Popover>
   );
-}
+};
+export default TanstackListFilter;

@@ -22,7 +22,6 @@ import {
 } from "@/components/ui/dialog";
 import { GatewaySchema } from "@/data/types/gateway";
 import { useGatewayStore } from "@/data/store/gateway-store";
-import { useState } from "react";
 
 const editFormSchema = GatewaySchema.pick({
   description: true,
@@ -33,10 +32,12 @@ export type GatewayEdit = z.infer<typeof editFormSchema>;
 interface FormEditProps {
   uuid: string;
   trigger: React.ReactNode;
+  open: boolean;
+  onClose: () => void;
 }
 
-export const FormEdit = ({ uuid, trigger }: FormEditProps) => {
-  const [open, setOpen] = useState(false);
+const FormEdit = ({ uuid, trigger, open, onClose }: FormEditProps) => {
+  // const [isOpen, setIsOpen] = useState(open);
 
   const gateway = useGatewayStore((state) => state.getGateway(uuid))!;
   const updateGateway = useGatewayStore((state) => state.updateGateway);
@@ -50,15 +51,21 @@ export const FormEdit = ({ uuid, trigger }: FormEditProps) => {
   });
 
   const onSubmit = (values: z.infer<typeof editFormSchema>) => {
-    console.log(values);
     updateGateway({ ...gateway, ...values });
-    setOpen(false);
+    // setIsOpen(false);
+    onClose();
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={() => {
+        // setIsOpen(value);
+        onClose();
+      }}
+    >
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent data-testid="form-edit" className="sm:max-w-[768px]">
         <DialogHeader>
           <DialogTitle>Edit Gateway</DialogTitle>
           <DialogDescription>
@@ -77,16 +84,25 @@ export const FormEdit = ({ uuid, trigger }: FormEditProps) => {
                     <Input
                       placeholder="Write a short description..."
                       {...field}
+                      data-testid="form-edit-description"
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit">Save</Button>
+            <div className="flex justify-end gap-2">
+              <Button data-testid="form-edit-submit" type="submit">
+                Save
+              </Button>
+              <Button data-testid="form-edit-cancel" type="button" variant="outline" onClick={onClose}>
+                Cancel
+              </Button>
+            </div>
           </form>
         </Form>
       </DialogContent>
     </Dialog>
   );
 };
+export default FormEdit;

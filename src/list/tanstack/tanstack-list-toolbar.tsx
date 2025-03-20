@@ -3,14 +3,14 @@ import { Table } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 
 import { models, statuses, versions } from "@/data/mock/common";
-import { TanstackListFilter } from "./tanstack-list-filter";
+import TanstackListFilter from "./tanstack-list-filter";
 import { X } from "lucide-react";
 
 interface TanstackListToolbarProps<TData> {
   table: Table<TData>;
 }
 
-export function TanstackListToolbar<TData>({
+function TanstackListToolbar<TData>({
   table,
 }: TanstackListToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
@@ -64,3 +64,4 @@ export function TanstackListToolbar<TData>({
     </div>
   );
 }
+export default TanstackListToolbar;

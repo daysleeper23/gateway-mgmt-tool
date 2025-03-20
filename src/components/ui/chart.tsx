@@ -139,9 +139,6 @@ function ChartTooltipContent({
         ? config[label as keyof typeof config]?.label || label
         : itemConfig?.label;
 
-    console.log("labelKey", labelKey, "label", label, "itemConfig", itemConfig);
-    // console.log('label', value);
-
     if (labelFormatter) {
       return (
         <div className={cn("font-medium", labelClassName)}>

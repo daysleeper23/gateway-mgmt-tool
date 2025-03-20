@@ -22,7 +22,7 @@ import {
 
 import { useGatewayStore } from "@/data/store/gateway-store";
 
-import { TanstackListToolbar } from "./tanstack-list-toolbar";
+import TanstackListToolbar from "./tanstack-list-toolbar";
 import { columns } from "./tanstack-list-columns";
 
 const TanstackListView = () => {

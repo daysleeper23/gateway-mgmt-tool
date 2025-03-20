@@ -1,10 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Gateway } from "@/data/types/gateway";
-import { FormEdit } from "@/form-edit/form-edit";
 import { formatTimeUS } from "@/list/utils";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowDown, ArrowUp, ChartLine, SquarePen } from "lucide-react";
-import { useNavigate } from "react-router";
+import { ArrowDown, ArrowUp } from "lucide-react";
+import { TanstackListRowAction } from "./tanstack-list-row-action";
 
 export const columns: ColumnDef<Gateway>[] = [
   {
@@ -72,35 +71,7 @@ export const columns: ColumnDef<Gateway>[] = [
     },
   },
   {
-    id: "edit",
-    cell: ({ row }) => {
-      return (
-        <FormEdit
-          uuid={row.original.uuid}
-          trigger={
-            <Button className="cursor-pointer" variant="ghost">
-              <SquarePen />
-              Edit
-            </Button>
-          }
-        />
-      );
-    },
-  },
-  {
-    id: "stats",
-    cell: ({ row }) => {
-      const navigate = useNavigate();
-      return (
-        <Button
-          className="cursor-pointer"
-          variant="outline"
-          onClick={() => navigate(`/${row.original.uuid}`)}
-        >
-          <ChartLine />
-          Stats
-        </Button>
-      );
-    },
+    id: "actions",
+    cell: ({ row }) => <TanstackListRowAction uuid={row.original.uuid} />,
   },
 ];
