@@ -1,7 +1,14 @@
-"use client"
+"use client";
 
-import { TrendingDown, TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts"
+import { TrendingDown } from "lucide-react";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  LabelList,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 import {
   Card,
@@ -10,15 +17,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
-import { GatewayTimeInStatus } from "@/data/types/gateway"
-import { formatNumber } from "@/list/utils"
+} from "@/components/ui/chart";
+import { GatewayTimeInStatus } from "@/data/types/gateway";
+import { formatNumber } from "@/list/utils";
 
 const chartConfig = {
   time: {
@@ -28,7 +35,7 @@ const chartConfig = {
   label: {
     color: "hsl(var(--background))",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 const TimeInStatusChart = ({
   timeInStatuses,
@@ -45,7 +52,9 @@ const TimeInStatusChart = ({
     <Card className="shadow-none rounded-sm">
       <CardHeader>
         <CardTitle>Time in Statuses</CardTitle>
-        <CardDescription>Total time in each status during the period</CardDescription>
+        <CardDescription>
+          Total time in each status during the period
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -66,7 +75,12 @@ const TimeInStatusChart = ({
               axisLine={false}
               hide
             />
-            <XAxis dataKey="time" type="number" domain={[0, maxTime * 1.2]} hide />
+            <XAxis
+              dataKey="time"
+              type="number"
+              domain={[0, maxTime * 1.2]}
+              hide
+            />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="line" />}
@@ -98,13 +112,14 @@ const TimeInStatusChart = ({
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
-          The gateway was in offline mode for a total of 27 hours and 30 minutes <TrendingDown className="h-4 w-4" />
+          The gateway was in offline mode for a total of 27 hours and 30 minutes{" "}
+          <TrendingDown className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
           Showing total time in each status for the last 3 days
         </div>
       </CardFooter>
     </Card>
-  )
-}
+  );
+};
 export default TimeInStatusChart;

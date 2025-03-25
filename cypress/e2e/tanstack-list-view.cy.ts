@@ -32,7 +32,7 @@ describe("Tanstack List View - Sorting", () => {
   it("should sort by last message timestamp DESC at the beginning", () => {
     cy.get('[data-testid="list-row"]')
       .first()
-      .should("contain", "Dec 13, 2023, 12:19:56");
+      .should("contain", "gatewaySink47Sink48");
   });
 
   it("should sort by last message timestamp ASC when the button is clicked once", () => {
@@ -40,7 +40,7 @@ describe("Tanstack List View - Sorting", () => {
     cy.wait(200);
     cy.get('[data-testid="list-row"]')
       .first()
-      .should("contain", "Dec 13, 2023, 12:17:51");
+      .should("contain", "gatewaySink1Sink2");
   });
 
   it("should sort by last message timestamp DESC when the button is clicked twice", () => {
@@ -50,7 +50,7 @@ describe("Tanstack List View - Sorting", () => {
     cy.wait(200);
     cy.get('[data-testid="list-row"]')
       .first()
-      .should("contain", "Dec 13, 2023, 12:19:56");
+      .should("contain", "gatewaySink47Sink48");
   });
 });
 
@@ -267,7 +267,7 @@ describe("Tanstack List View - Responsive UI", () => {
     cy.viewport("iphone-6");
     cy.visit("/");
     cy.wait(200);
-    
+
     cy.get('[data-testid="list-header"]')
       .first()
       .within(() => {
