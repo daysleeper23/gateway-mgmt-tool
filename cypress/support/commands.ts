@@ -1,10 +1,10 @@
 import { mount } from "cypress/react";
 
 declare global {
-  namespace Cypress {
-    interface Chainable<Subject> {
-      mount(component: React.ReactNode, options?: any): Chainable;
-      openEditGatewayForm(): Chainable;
+  namespace Cypress { // eslint-disable-line @typescript-eslint/no-namespace
+    interface Chainable {
+      mount(component: React.ReactNode, options?: any): Chainable; // eslint-disable-line @typescript-eslint/no-explicit-any
+      openEditGatewayForm(): Chainable<void>;
     }
   }
 }

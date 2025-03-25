@@ -19,6 +19,8 @@ import TimeInStatusChart from "./time-in-status-chart";
 const StatisticsView = () => {
   const uuid = useParams<{ uuid: string }>().uuid!;
   const gateway = useGatewayStore((state) => state.getGateway(uuid));
+  const gatewayStats = useGatewayStore((state) => state.gatewayStat);
+
   if (!gateway) {
     return <NotFoundView />;
   }
@@ -35,7 +37,7 @@ const StatisticsView = () => {
     },
     historySamples,
     statusChangeEvents,
-  } = useGatewayStore((state) => state.gatewayStat);
+  } = gatewayStats;
 
   const statusTransitionChartData = statusChangeEvents
     .map((event) => ({
