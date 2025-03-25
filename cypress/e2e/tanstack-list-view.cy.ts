@@ -261,3 +261,157 @@ describe("Tanstack List View - Filtering Logic", () => {
     cy.get('[data-testid="list-row"]').should("have.length", GATEWAY_COUNT);
   });
 });
+
+describe("Tanstack List View - Responsive UI", () => {
+  it("should show only essential columns on extra small screens", () => {
+    cy.viewport("iphone-6");
+    cy.visit("/");
+
+    // Should be visible
+    cy.get('[data-testid="list-header"]')
+      .first()
+      .within(() => {
+        cy.contains(/Gateway ID/).should("be.visible");
+        cy.contains(/Status/).should("be.visible");
+        cy.contains(/Last Message/).should("not.be.visible");
+        cy.contains(/Sink/).should("not.be.visible");
+        cy.contains(/Model/).should("not.be.visible");
+        cy.contains(/Version/).should("not.be.visible");
+        cy.contains(/Description/).should("not.be.visible");
+      });
+
+    // Verify toolbar is responsive
+    cy.get('[data-testid="list-toolbar"]').should("be.visible");
+    cy.get('[data-testid="list-filter-status"]').should("be.visible");
+  });
+
+  it("should show additional columns on small screens", () => {
+    cy.viewport(640, 1136);
+    cy.visit("/");
+
+    // Should be visible
+    cy.get('[data-testid="list-header"]')
+      .first()
+      .within(() => {
+        cy.contains(/Gateway ID/).should("be.visible");
+        cy.contains(/Status/).should("be.visible");
+        cy.contains(/Last Message/).should("be.visible");
+        cy.contains(/Sink/).should("not.be.visible");
+        cy.contains(/Model/).should("not.be.visible");
+        cy.contains(/Version/).should("not.be.visible");
+        cy.contains(/Description/).should("not.be.visible");
+      });
+
+    // Verify toolbar is responsive
+    cy.get('[data-testid="list-toolbar"]').should("be.visible");
+    cy.get('[data-testid="list-filter-status"]').should("be.visible");
+  });
+
+  it("should show more columns on medium screens", () => {
+    cy.viewport("ipad-mini");
+    cy.visit("/");
+
+    // Should be visible
+    cy.get('[data-testid="list-header"]')
+      .first()
+      .within(() => {
+        cy.contains(/Gateway ID/).should("be.visible");
+        cy.contains(/Status/).should("be.visible");
+        cy.contains(/Last Message/).should("be.visible");
+        cy.contains(/Sink/).should("be.visible");
+        cy.contains(/Model/).should("not.be.visible");
+        cy.contains(/Version/).should("not.be.visible");
+        cy.contains(/Description/).should("not.be.visible");
+      });
+
+    // Verify toolbar is fully visible
+    cy.get('[data-testid="list-toolbar"]').should("be.visible");
+    cy.get('[data-testid="list-filter-status"]').should("be.visible");
+    cy.get('[data-testid="list-filter-version"]').should("be.visible");
+    cy.get('[data-testid="list-filter-model"]').should("be.visible");
+  });
+
+  it("should show all columns including description on large screens", () => {
+    cy.viewport("macbook-16");
+    cy.visit("/");
+
+    // Should be visible
+    cy.get('[data-testid="list-header"]')
+      .first()
+      .within(() => {
+        cy.contains(/Gateway ID/).should("be.visible");
+        cy.contains(/Status/).should("be.visible");
+        cy.contains(/Last Message/).should("be.visible");
+        cy.contains(/Sink/).should("be.visible");
+        cy.contains(/Model/).should("be.visible");
+        cy.contains(/Version/).should("be.visible");
+        cy.contains(/Description/).should("be.visible");
+      });
+
+    // Verify toolbar is fully visible
+    cy.get('[data-testid="list-toolbar"]').should("be.visible");
+    cy.get('[data-testid="list-filter-status"]').should("be.visible");
+    cy.get('[data-testid="list-filter-version"]').should("be.visible");
+    cy.get('[data-testid="list-filter-model"]').should("be.visible");
+  });
+
+  it("should maintain functionality across screen sizes", () => {
+    // Test on different screen sizes
+    const viewports = [
+      { width: 768, height: 1024, name: "ipad-2" },
+      { width: 1280, height: 800, name: "macbook-13" },
+      { width: 1536, height: 960, name: "macbook-16" },
+    ];
+
+    viewports.forEach((viewport) => {
+      cy.viewport(viewport.width, viewport.height);
+      cy.visit("/");
+
+      // Verify basic functionality
+      cy.get('[data-testid="list-view"]').should("exist");
+      cy.get('[data-testid="list-row"]').should("have.length", GATEWAY_COUNT);
+
+      // Test sorting
+      cy.get('[data-testid="list-sort-last-message"]').click();
+      cy.get('[data-testid="list-row"]').first().should("exist");
+
+      // Test filtering
+      cy.get('[data-testid="list-filter-status"]').click();
+      cy.get('[data-testid="list-filter-dropdown"]').contains("ACTIVE").click();
+      cy.get('[data-testid="list-row"]').should("have.length", ACTIVE_COUNT);
+
+      // Reset filters
+      cy.get('[data-testid="list-filter-reset"]').click();
+      cy.get('[data-testid="list-row"]').should("have.length", GATEWAY_COUNT);
+    });
+  });
+
+  it("should handle text truncation correctly", () => {
+    cy.viewport("macbook-13");
+    cy.visit("/");
+
+    // Check Gateway ID truncation
+    cy.get('[data-testid="list-row"]')
+      .first()
+      .find("td")
+      .eq(0)
+      .invoke("text")
+      .should("have.length.at.most", 40);
+
+    // Check Model truncation
+    cy.get('[data-testid="list-row"]')
+      .first()
+      .find("td")
+      .eq(3)
+      .invoke("text")
+      .should("have.length.at.most", 32);
+
+    // Check Last Message truncation
+    cy.get('[data-testid="list-row"]')
+      .first()
+      .find("td")
+      .eq(6)
+      .invoke("text")
+      .should("have.length.at.most", 40);
+  });
+});

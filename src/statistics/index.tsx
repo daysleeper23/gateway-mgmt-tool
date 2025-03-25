@@ -48,7 +48,7 @@ const StatisticsView = () => {
     <div className="bg-gray-50 flex-1 gap-4 flex flex-col overflow-y-auto p-4">
       <DeviceInfo uuid={uuid} snapshotTime={snapshotTime} />
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4">
         <StatusCard
           startTime={startTime}
           endTime={endTime}

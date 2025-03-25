@@ -5,11 +5,11 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { TanstackListRowAction } from "./tanstack-list-row-action";
 
-
 const RESPONSIVE_CLASSES = {
   HIDE_ON_EXTRA_SMALL: "hidden sm:table-cell",
   HIDE_ON_SMALL: "hidden md:table-cell",
   HIDE_ON_MEDIUM: "hidden lg:table-cell",
+  HIDE_ON_LARGE: "hidden xl:table-cell",
   TRUNCATE: "truncate",
   CAPITALIZE: "capitalize",
 } as const;
@@ -17,7 +17,7 @@ const RESPONSIVE_CLASSES = {
 const COLUMN_SIZES = {
   GATEWAY_ID: "w-40",
   DESCRIPTION: "w-28 lg:w-40",
-  STATUS: "w-16",
+  STATUS: "w-12 sm:w-16",
   MODEL: "w-32",
   VERSION: "w-24",
   LAST_MESSAGE: "w-40",
@@ -26,21 +26,54 @@ const COLUMN_SIZES = {
 export const columns: ColumnDef<Gateway>[] = [
   {
     accessorKey: "gatewayId",
-    header: () => <div className={`pl-4 ${COLUMN_SIZES.GATEWAY_ID} ${RESPONSIVE_CLASSES.TRUNCATE}`}>Gateway ID</div>,
+    header: () => (
+      <div
+        className={`pl-4 ${COLUMN_SIZES.GATEWAY_ID} ${RESPONSIVE_CLASSES.TRUNCATE}`}
+      >
+        Gateway ID
+      </div>
+    ),
     cell: ({ row }) => (
-      <div className={`pl-4 ${COLUMN_SIZES.GATEWAY_ID} ${RESPONSIVE_CLASSES.TRUNCATE}`}>{row.getValue("gatewayId")}</div>
+      <div
+        className={`pl-4 ${COLUMN_SIZES.GATEWAY_ID} ${RESPONSIVE_CLASSES.TRUNCATE}`}
+      >
+        {row.getValue("gatewayId")}
+      </div>
     ),
   },
   {
     accessorKey: "description",
-    header: () => <div className={`${COLUMN_SIZES.DESCRIPTION} ${RESPONSIVE_CLASSES.TRUNCATE} ${RESPONSIVE_CLASSES.HIDE_ON_MEDIUM}`}>Description</div>,
-    cell: ({ row }) => <div className={`${COLUMN_SIZES.DESCRIPTION} ${RESPONSIVE_CLASSES.TRUNCATE} ${RESPONSIVE_CLASSES.HIDE_ON_MEDIUM}`}>{row.getValue("description")}</div>,
+    header: () => (
+      <div
+        className={`${COLUMN_SIZES.DESCRIPTION} ${RESPONSIVE_CLASSES.TRUNCATE} ${RESPONSIVE_CLASSES.HIDE_ON_LARGE}`}
+      >
+        Description
+      </div>
+    ),
+    cell: ({ row }) => (
+      <div
+        className={`${COLUMN_SIZES.DESCRIPTION} ${RESPONSIVE_CLASSES.TRUNCATE} ${RESPONSIVE_CLASSES.HIDE_ON_LARGE}`}
+      >
+        {row.getValue("description")}
+      </div>
+    ),
+    enableHiding: true,
   },
   {
     accessorKey: "status",
-    header: () => <div className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.STATUS}`}>Status</div>,
+    header: () => (
+      <div
+        className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.STATUS}`}
+      >
+        Status
+      </div>
+    ),
     cell: ({ row }) => (
-      <div className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.STATUS}`}>{row.getValue("status")}</div>
+      <div
+        className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.STATUS}`}
+      >
+        {row.getValue("status")}
+      </div>
     ),
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
@@ -48,9 +81,19 @@ export const columns: ColumnDef<Gateway>[] = [
   },
   {
     accessorKey: "model",
-    header: () => <div className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.MODEL} ${RESPONSIVE_CLASSES.TRUNCATE} ${RESPONSIVE_CLASSES.HIDE_ON_MEDIUM}`}>Model</div>,
+    header: () => (
+      <div
+        className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.MODEL} ${RESPONSIVE_CLASSES.TRUNCATE} ${RESPONSIVE_CLASSES.HIDE_ON_MEDIUM}`}
+      >
+        Model
+      </div>
+    ),
     cell: ({ row }) => (
-      <div className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.MODEL} ${RESPONSIVE_CLASSES.TRUNCATE} ${RESPONSIVE_CLASSES.HIDE_ON_MEDIUM}`}>{row.getValue("model")}</div>
+      <div
+        className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.MODEL} ${RESPONSIVE_CLASSES.TRUNCATE} ${RESPONSIVE_CLASSES.HIDE_ON_MEDIUM}`}
+      >
+        {row.getValue("model")}
+      </div>
     ),
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
@@ -58,9 +101,19 @@ export const columns: ColumnDef<Gateway>[] = [
   },
   {
     accessorKey: "version",
-    header: () => <div className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.VERSION} ${RESPONSIVE_CLASSES.HIDE_ON_SMALL}`}>Version</div>,
+    header: () => (
+      <div
+        className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.VERSION} ${RESPONSIVE_CLASSES.HIDE_ON_MEDIUM}`}
+      >
+        Version
+      </div>
+    ),
     cell: ({ row }) => (
-      <div className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.VERSION} ${RESPONSIVE_CLASSES.HIDE_ON_SMALL}`}>{row.getValue("version")}</div>
+      <div
+        className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.VERSION} ${RESPONSIVE_CLASSES.HIDE_ON_MEDIUM}`}
+      >
+        {row.getValue("version")}
+      </div>
     ),
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
@@ -99,16 +152,16 @@ export const columns: ColumnDef<Gateway>[] = [
     },
     cell: ({ getValue }) => {
       return (
-        <div className={`${COLUMN_SIZES.LAST_MESSAGE} ${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.LAST_MESSAGE} ${RESPONSIVE_CLASSES.TRUNCATE} ${RESPONSIVE_CLASSES.HIDE_ON_EXTRA_SMALL}`}>{formatTimeUS(getValue() as number)}</div>
+        <div
+          className={`${COLUMN_SIZES.LAST_MESSAGE} ${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.LAST_MESSAGE} ${RESPONSIVE_CLASSES.TRUNCATE} ${RESPONSIVE_CLASSES.HIDE_ON_EXTRA_SMALL}`}
+        >
+          {formatTimeUS(getValue() as number)}
+        </div>
       );
     },
   },
   {
     id: "actions",
     cell: ({ row }) => <TanstackListRowAction uuid={row.original.uuid} />,
-    enableHiding: false,
-    size: 50,
-    enableSorting: false,
-    enableColumnFilter: false,
   },
 ];

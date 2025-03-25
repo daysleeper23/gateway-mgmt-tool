@@ -18,10 +18,10 @@ function TanstackListToolbar<TData>({
   return (
     <div
       data-testid="list-toolbar"
-      className="flex gap-4 items-center justify-between px-6 py-3 border-b"
+      className="flex gap-4 items-center justify-between px-6 py-3 border-b flex-wrap"
     >
-      <div className="text-sm font-medium">Filter</div>
-      <div className="flex flex-1 items-center space-x-2">
+      <div className="text-sm font-medium hidden sm:block">Filter</div>
+      <div className="flex flex-1 items-center gap-2 flex-wrap">
         {table.getColumn("status") && (
           <div data-testid="list-filter-status">
             <TanstackListFilter
