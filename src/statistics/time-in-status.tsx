@@ -21,11 +21,11 @@ const TimeInStatus = ({
           Total time in each status during the period
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex gap-12">
+      <CardContent className="grid grid-cols-2 gap-4 lg:grid-cols-4 flex-1">
         {Object.entries(timeInStatuses).map(([status, time]) => (
           <div key={status} className="flex flex-col">
             <p className="capitalize text-muted-foreground">{status}</p>
-            <p className="text-2xl font-semibold">{formatNumber(time)}</p>
+            <p className="text-lg lg:text-xl xl:text-2xl font-semibold">{formatNumber(time)}</p>
           </div>
         ))}
       </CardContent>

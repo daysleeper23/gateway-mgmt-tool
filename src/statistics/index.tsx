@@ -15,6 +15,7 @@ import { StatusTransitionChart } from "./status-transition-chart";
 import HistorySamplesChart from "./history-samples-chart";
 import DeviceInfo from "./device-info";
 import NotFoundView from "@/layout/404";
+import TimeInStatusChart from "./time-in-status-chart";
 
 const StatisticsView = () => {
   const uuid = useParams<{ uuid: string }>().uuid!;
@@ -46,21 +47,29 @@ const StatisticsView = () => {
 
   return (
     <div className="bg-gray-50 flex-1 gap-4 flex flex-col overflow-y-auto p-4">
-      <DeviceInfo uuid={uuid} snapshotTime={snapshotTime} />
-
       <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4">
+        <div className="flex flex-col gap-4">
+          <DeviceInfo uuid={uuid} snapshotTime={snapshotTime} />
+        
         <StatusCard
           startTime={startTime}
           endTime={endTime}
           startTimeStatus={startTimeStatus}
           endTimeStatus={endTimeStatus}
         />
-        <TimeInStatus timeInStatuses={timeInStatusesS} />
+        </div>
+
         <div className="space-y-4">
           <StatusTransitions statusTransitionCounts={statusTransitionCounts} />
         </div>
 
+        
+      </div>
+
+      <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4">
+        <TimeInStatusChart timeInStatuses={timeInStatusesS} />
         <StatusTransitionChart chartData={statusTransitionChartData} />
+
       </div>
 
       <HistorySamplesChart historySamples={historySamples} />
