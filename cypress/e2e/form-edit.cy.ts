@@ -7,12 +7,12 @@ beforeEach(() => {
 describe("Form Edit - Rendering", () => {
   it("should render form edit correctly", () => {
     cy.get('[data-testid="list-row-action-trigger"]').first().click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="list-row-action-dropdown"]').should("exist");
     cy.get('[data-testid="list-row-action-dropdown"]')
       .contains("Edit Gateway")
       .click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="form-edit"]').should("exist");
     cy.get('[data-testid="form-edit"]').should("contain", "Edit Gateway");
     cy.get('[data-testid="form-edit"]').should("contain", "Description");
@@ -23,27 +23,27 @@ describe("Form Edit - Rendering", () => {
 describe("Form Edit - Submit", () => {
   it("should submit form edit correctly", () => {
     cy.get('[data-testid="list-row-action-trigger"]').first().click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="list-row-action-dropdown"]').should("exist");
     cy.get('[data-testid="list-row-action-dropdown"]')
       .contains("Edit Gateway")
       .click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="form-edit"]').should("exist");
     cy.get('[data-testid="form-edit-description"]').type("Test Description");
 
     cy.get('[data-testid="select-multiple-trigger"]').first().click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="select-multiple-dropdown"]')
       .contains("Sink 6")
       .click();
     cy.get('[data-testid="select-multiple-dropdown"]')
       .contains("Sink 7")
       .click();
-    cy.get("body").click(10, 10);
-    cy.wait(500);
+    cy.get('[data-slot="dialog-overlay"]').click(10, 10);
+    cy.wait(200);
     cy.get('[data-testid="form-edit-submit"]').click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="form-edit"]').should("not.exist");
     cy.get('[data-testid="list-row"]')
       .first()
@@ -53,16 +53,16 @@ describe("Form Edit - Submit", () => {
 
   it("should not submit form edit with empty description", () => {
     cy.get('[data-testid="list-row-action-trigger"]').first().click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="list-row-action-dropdown"]').should("exist");
     cy.get('[data-testid="list-row-action-dropdown"]')
       .contains("Edit Gateway")
       .click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="form-edit"]').should("exist");
     cy.get('[data-testid="form-edit-description"]').type("{backspace}");
     cy.get('[data-testid="form-edit-submit"]').click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="form-edit"]').should("exist");
     cy.get('[data-testid="form-edit"]').should(
       "contain",
@@ -72,23 +72,23 @@ describe("Form Edit - Submit", () => {
 
   it("should not submit form edit with less than 2 nodes", () => {
     cy.get('[data-testid="list-row-action-trigger"]').first().click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="list-row-action-dropdown"]').should("exist");
     cy.get('[data-testid="list-row-action-dropdown"]')
       .contains("Edit Gateway")
       .click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="form-edit"]').should("exist");
 
     cy.get('[data-testid="select-multiple-trigger"]').first().click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="select-multiple-dropdown"]')
       .contains("Sink 1")
       .click();
-    cy.get("body").click(10, 10);
-    cy.wait(500);
+    cy.get('[data-slot="dialog-overlay"]').click(10, 10);
+    cy.wait(200);
     cy.get('[data-testid="form-edit-submit"]').click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="form-edit"]').should("exist");
     cy.get('[data-testid="form-edit"]').should(
       "contain",
@@ -98,27 +98,27 @@ describe("Form Edit - Submit", () => {
 
   it("should not submit form if user click on Canceled", () => {
     cy.get('[data-testid="list-row-action-trigger"]').first().click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="list-row-action-dropdown"]').should("exist");
     cy.get('[data-testid="list-row-action-dropdown"]')
       .contains("Edit Gateway")
       .click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="form-edit"]').should("exist");
     cy.get('[data-testid="form-edit-description"]').type("Test Description");
 
     cy.get('[data-testid="select-multiple-trigger"]').first().click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="select-multiple-dropdown"]')
       .contains("Sink 6")
       .click();
     cy.get('[data-testid="select-multiple-dropdown"]')
       .contains("Sink 7")
       .click();
-    cy.get("body").click(10, 10);
-    cy.wait(500);
+    cy.get('[data-slot="dialog-overlay"]').click(10, 10);
+    cy.wait(200);
     cy.get('[data-testid="form-edit-cancel"]').click();
-    cy.wait(500);
+    cy.wait(200);
     cy.get('[data-testid="form-edit"]').should("not.exist");
     cy.get('[data-testid="list-row"]')
       .first()
