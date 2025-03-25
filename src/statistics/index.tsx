@@ -9,7 +9,6 @@ import { useGatewayStore } from "@/data/store/gateway-store";
 import { GatewayStatus, mapStatusToNumeric } from "@/data/types/gateway";
 import { formatTimeUS } from "@/list/utils";
 import { useParams } from "react-router";
-import TimeInStatus from "./time-in-status";
 import StatusTransitions from "./status-transition-count";
 import { StatusTransitionChart } from "./status-transition-chart";
 import HistorySamplesChart from "./history-samples-chart";
@@ -50,26 +49,23 @@ const StatisticsView = () => {
       <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4">
         <div className="flex flex-col gap-4">
           <DeviceInfo uuid={uuid} snapshotTime={snapshotTime} />
-        
-        <StatusCard
-          startTime={startTime}
-          endTime={endTime}
-          startTimeStatus={startTimeStatus}
-          endTimeStatus={endTimeStatus}
-        />
+
+          <StatusCard
+            startTime={startTime}
+            endTime={endTime}
+            startTimeStatus={startTimeStatus}
+            endTimeStatus={endTimeStatus}
+          />
         </div>
 
         <div className="space-y-4">
           <StatusTransitions statusTransitionCounts={statusTransitionCounts} />
         </div>
-
-        
       </div>
 
       <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4">
         <TimeInStatusChart timeInStatuses={timeInStatusesS} />
         <StatusTransitionChart chartData={statusTransitionChartData} />
-
       </div>
 
       <HistorySamplesChart historySamples={historySamples} />

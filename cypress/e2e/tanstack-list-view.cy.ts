@@ -267,7 +267,7 @@ describe("Tanstack List View - Responsive UI", () => {
     cy.viewport("iphone-6");
     cy.visit("/");
     cy.wait(200);
-    
+
     cy.get('[data-testid="list-header"]')
       .first()
       .within(() => {

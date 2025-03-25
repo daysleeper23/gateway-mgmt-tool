@@ -25,7 +25,9 @@ const TimeInStatus = ({
         {Object.entries(timeInStatuses).map(([status, time]) => (
           <div key={status} className="flex flex-col">
             <p className="capitalize text-muted-foreground">{status}</p>
-            <p className="text-lg lg:text-xl xl:text-2xl font-semibold">{formatNumber(time)}</p>
+            <p className="text-lg lg:text-xl xl:text-2xl font-semibold">
+              {formatNumber(time)}
+            </p>
           </div>
         ))}
       </CardContent>

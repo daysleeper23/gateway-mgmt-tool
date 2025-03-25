@@ -20,7 +20,9 @@ const DeviceInfo = ({
         </div>
         <div className="flex flex-col">
           <p className="text-muted-foreground font-medium">Snapshot Time</p>
-          <p className="text-lg lg:text-xl xl:text-2xl font-semibold">{formatTimeUS(snapshotTime)}</p>
+          <p className="text-lg lg:text-xl xl:text-2xl font-semibold">
+            {formatTimeUS(snapshotTime)}
+          </p>
         </div>
       </CardContent>
     </Card>

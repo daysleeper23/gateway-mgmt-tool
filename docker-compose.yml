@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  # Development service
+  dev:
+    build:
+      context: .
+      target: builder
+    image: gateway-mgmt-tool-demo:dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    command: yarn dev
+    environment:
+      - NODE_ENV=development
+    networks:
+      - app-network
+
+  # Production service
+  prod:
+    build: .
+    image: gateway-mgmt-tool-demo:prod
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
