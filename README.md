@@ -1,6 +1,10 @@
+![test](https://github.com/daysleeper23/gateway-mgmt-tool/actions/workflows/test.yml/badge.svg)
+
 # Gateway Management Demo
 
-This project implemented a user interface for viewing and editing gateways, using React and Typescript.
+This project implemented a user interface for viewing and editing gateways, using React and Typescript. 
+- The primary UI is a list/table view, with sorting & filtering functions.
+- The secondary UI is a detail view that utilizes different visualizations to display the statistics of a gateway.
 
 ## Table of Contents
 
@@ -42,3 +46,4 @@ These are the user stories for this demo:
 - Form & form validation: [React Hook Form](https://react-hook-form.com/)
 - Data table, sorting & filtering: [TanStack Table](https://tanstack.com/table/latest)
 - Data visualization: [Recharts](https://recharts.org/en-US/)
+- State management: [zustand](https://github.com/pmndrs/zustand)
