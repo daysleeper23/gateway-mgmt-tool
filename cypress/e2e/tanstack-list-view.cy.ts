@@ -50,7 +50,7 @@ describe("Tanstack List View - Sorting", () => {
     cy.wait(200);
     cy.get('[data-testid="list-row"]')
       .first()
-      .should("contain", "Dec 13, 2023, 12:19:56");
+      .should("contain", "gatewaySink47Sink48");
   });
 });
 
