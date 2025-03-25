@@ -37,7 +37,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar className="border-r-0" {...props}>
       <SidebarHeader>
         <div className="text-lg font-black font-mono p-3 border rounded-sm mb-4 bg-neutral-950 text-orange-500">
-          {import.meta.env.VITE_APP_NAME || 'WNMT'}
+          {import.meta.env.VITE_APP_NAME || "WNMT"}
         </div>
         <NavMain items={navMain} setActiveItem={setNavMain} />
       </SidebarHeader>

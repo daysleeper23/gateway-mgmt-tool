@@ -5,24 +5,75 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { TanstackListRowAction } from "./tanstack-list-row-action";
 
+const RESPONSIVE_CLASSES = {
+  HIDE_ON_EXTRA_SMALL: "hidden sm:table-cell",
+  HIDE_ON_SMALL: "hidden md:table-cell",
+  HIDE_ON_MEDIUM: "hidden lg:table-cell",
+  HIDE_ON_LARGE: "hidden xl:table-cell",
+  TRUNCATE: "truncate",
+  CAPITALIZE: "capitalize",
+} as const;
+
+const COLUMN_SIZES = {
+  GATEWAY_ID: "w-40",
+  DESCRIPTION: "w-28 lg:w-40",
+  STATUS: "w-12 sm:w-16",
+  MODEL: "w-32",
+  VERSION: "w-24",
+  LAST_MESSAGE: "w-40",
+} as const;
+
 export const columns: ColumnDef<Gateway>[] = [
   {
     accessorKey: "gatewayId",
-    header: () => <div className="pl-4">Gateway ID</div>,
+    header: () => (
+      <div
+        className={`pl-4 ${COLUMN_SIZES.GATEWAY_ID} ${RESPONSIVE_CLASSES.TRUNCATE}`}
+      >
+        Gateway ID
+      </div>
+    ),
     cell: ({ row }) => (
-      <div className="pl-4 w-40 truncate">{row.getValue("gatewayId")}</div>
+      <div
+        className={`pl-4 ${COLUMN_SIZES.GATEWAY_ID} ${RESPONSIVE_CLASSES.TRUNCATE}`}
+      >
+        {row.getValue("gatewayId")}
+      </div>
     ),
   },
   {
     accessorKey: "description",
-    header: "Description",
-    cell: ({ row }) => <div>{row.getValue("description")}</div>,
+    header: () => (
+      <div
+        className={`${COLUMN_SIZES.DESCRIPTION} ${RESPONSIVE_CLASSES.TRUNCATE} ${RESPONSIVE_CLASSES.HIDE_ON_LARGE}`}
+      >
+        Description
+      </div>
+    ),
+    cell: ({ row }) => (
+      <div
+        className={`${COLUMN_SIZES.DESCRIPTION} ${RESPONSIVE_CLASSES.TRUNCATE} ${RESPONSIVE_CLASSES.HIDE_ON_LARGE}`}
+      >
+        {row.getValue("description")}
+      </div>
+    ),
+    enableHiding: true,
   },
   {
     accessorKey: "status",
-    header: () => <div className="capitalize w-20">Status</div>,
+    header: () => (
+      <div
+        className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.STATUS}`}
+      >
+        Status
+      </div>
+    ),
     cell: ({ row }) => (
-      <div className="capitalize w-20">{row.getValue("status")}</div>
+      <div
+        className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.STATUS}`}
+      >
+        {row.getValue("status")}
+      </div>
     ),
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
@@ -30,9 +81,19 @@ export const columns: ColumnDef<Gateway>[] = [
   },
   {
     accessorKey: "model",
-    header: "Model",
+    header: () => (
+      <div
+        className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.MODEL} ${RESPONSIVE_CLASSES.TRUNCATE} ${RESPONSIVE_CLASSES.HIDE_ON_MEDIUM}`}
+      >
+        Model
+      </div>
+    ),
     cell: ({ row }) => (
-      <div className="capitalize w-32 truncate">{row.getValue("model")}</div>
+      <div
+        className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.MODEL} ${RESPONSIVE_CLASSES.TRUNCATE} ${RESPONSIVE_CLASSES.HIDE_ON_MEDIUM}`}
+      >
+        {row.getValue("model")}
+      </div>
     ),
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
@@ -40,9 +101,19 @@ export const columns: ColumnDef<Gateway>[] = [
   },
   {
     accessorKey: "version",
-    header: "Version",
+    header: () => (
+      <div
+        className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.VERSION} ${RESPONSIVE_CLASSES.HIDE_ON_MEDIUM}`}
+      >
+        Version
+      </div>
+    ),
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("version")}</div>
+      <div
+        className={`${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.VERSION} ${RESPONSIVE_CLASSES.HIDE_ON_MEDIUM}`}
+      >
+        {row.getValue("version")}
+      </div>
     ),
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
@@ -50,9 +121,9 @@ export const columns: ColumnDef<Gateway>[] = [
   },
   {
     accessorKey: "sinkNodes",
-    header: "Sink",
+    header: () => <div className={RESPONSIVE_CLASSES.HIDE_ON_SMALL}>Sink</div>,
     cell: ({ row }) => (
-      <div>
+      <div className={RESPONSIVE_CLASSES.HIDE_ON_SMALL}>
         {row.original.sinkNodes.length +
           " node" +
           (row.original.sinkNodes.length === 1 ? "" : "s")}
@@ -69,18 +140,23 @@ export const columns: ColumnDef<Gateway>[] = [
       return (
         <Button
           data-testid="list-sort-last-message"
-          className="-ml-3"
+          className={`-ml-6 hidden sm:flex ${COLUMN_SIZES.LAST_MESSAGE}`}
           variant="ghost"
+          size="sm"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Last Message Timestamp
+          Last Message
           {column.getIsSorted() === "asc" ? <ArrowUp /> : <ArrowDown />}
         </Button>
       );
     },
     cell: ({ getValue }) => {
       return (
-        <div className="capitalize">{formatTimeUS(getValue() as number)}</div>
+        <div
+          className={`${COLUMN_SIZES.LAST_MESSAGE} ${RESPONSIVE_CLASSES.CAPITALIZE} ${COLUMN_SIZES.LAST_MESSAGE} ${RESPONSIVE_CLASSES.TRUNCATE} ${RESPONSIVE_CLASSES.HIDE_ON_EXTRA_SMALL}`}
+        >
+          {formatTimeUS(getValue() as number)}
+        </div>
       );
     },
   },

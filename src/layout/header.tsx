@@ -9,6 +9,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { useLocation } from "react-router";
+import { z } from "zod";
 
 const HeaderBar = () => {
   const location = useLocation();
@@ -16,27 +17,30 @@ const HeaderBar = () => {
   return (
     <header className="flex h-18 shrink-0 items-center gap-2 border-b border-primary-200 dark:border-primary-700">
       <div className="flex items-center gap-2 px-4 w-full h-full">
-        <SidebarTrigger />
+        <SidebarTrigger data-testid="sidebar-trigger" />
         <Separator orientation="vertical" className="mr-2 max-h-4" />
         <Breadcrumb>
           <BreadcrumbList>
-            <BreadcrumbItem className="hidden md:block">
-              {location.pathname === "/" ? (
+            <BreadcrumbItem>
+              {z.string().uuid().safeParse(location.pathname.split("/")[1])
+                .success ? (
+                <>
+                  <BreadcrumbLink href="/">Gateways</BreadcrumbLink>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage className="w-64 truncate md:w-auto">
+                      {location.pathname.split("/").reverse()[0]}
+                    </BreadcrumbPage>
+                  </BreadcrumbItem>
+                </>
+              ) : location.pathname === "/" ? (
                 <BreadcrumbPage>Gateways</BreadcrumbPage>
               ) : (
-                <BreadcrumbLink href="/">Gateways</BreadcrumbLink>
+                <BreadcrumbPage className="capitalize">
+                  {location.pathname.split("/")[1]}
+                </BreadcrumbPage>
               )}
             </BreadcrumbItem>
-            {location.pathname !== "/" && (
-              <>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>
-                    {location.pathname.split("/").reverse()[0]}
-                  </BreadcrumbPage>
-                </BreadcrumbItem>
-              </>
-            )}
           </BreadcrumbList>
         </Breadcrumb>
       </div>
