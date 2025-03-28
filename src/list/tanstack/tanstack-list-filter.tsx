@@ -39,6 +39,10 @@ const TanstackListFilter = <TData, TValue>({
   const facets = column?.getFacetedUniqueValues();
   const selectedValues = new Set(column?.getFilterValue() as string[]);
 
+  const clearFilters = () => {
+    column?.setFilterValue(undefined);
+  };
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -129,17 +133,7 @@ const TanstackListFilter = <TData, TValue>({
               })}
             </CommandGroup>
             {selectedValues.size > 0 && (
-              <div data-testid="list-filter-clear">
-                <CommandSeparator />
-                <CommandGroup>
-                  <CommandItem
-                    onSelect={() => column?.setFilterValue(undefined)}
-                    className="justify-center text-center"
-                  >
-                    Clear filters
-                  </CommandItem>
-                </CommandGroup>
-              </div>
+              <ClearFilters onClear={clearFilters} />
             )}
           </CommandList>
         </Command>
@@ -148,3 +142,17 @@ const TanstackListFilter = <TData, TValue>({
   );
 };
 export default TanstackListFilter;
+
+const ClearFilters = ({ onClear }: { onClear: () => void }) => (
+  <div data-testid="list-filter-clear">
+    <CommandSeparator />
+    <CommandGroup>
+      <CommandItem
+        onSelect={onClear}
+        className="justify-center text-center"
+      >
+        Clear filters
+      </CommandItem>
+    </CommandGroup>
+  </div>
+);
