@@ -96,42 +96,20 @@ const HistorySamplesChart = ({
               content={<ChartTooltipContent indicator="line" />}
             />
             <ChartLegend content={<ChartLegendContent />} />
-            <Area
-              type="monotone"
-              dataKey="ACTIVE"
-              stackId="1"
-              stroke="var(--color-ACTIVE)"
-              fill="var(--color-ACTIVE)"
-              fillOpacity={0.4}
-              name="ACTIVE"
-            />
-            <Area
-              type="monotone"
-              dataKey="INACTIVE"
-              stackId="1"
-              stroke="var(--color-INACTIVE)"
-              fill="var(--color-INACTIVE)"
-              fillOpacity={0.4}
-              name="INACTIVE"
-            />
-            <Area
-              type="monotone"
-              dataKey="UNSTABLE"
-              stackId="1"
-              stroke="var(--color-UNSTABLE)"
-              fill="var(--color-UNSTABLE)"
-              fillOpacity={0.4}
-              name="UNSTABLE"
-            />
-            <Area
-              type="monotone"
-              dataKey="OFFLINE"
-              stackId="1"
-              stroke="var(--color-OFFLINE)"
-              fill="var(--color-OFFLINE)"
-              fillOpacity={0.4}
-              name="OFFLINE"
-            />
+            {
+              Object.entries(chartConfig).map(([key, value]) => (
+                <Area
+                  key={key}
+                  type="monotone"
+                  dataKey={key}
+                  stackId="1"
+                  stroke={value.color}
+                  fill={value.color}
+                  fillOpacity={0.4}
+                  name={value.label}
+                />
+              ))
+            }
           </AreaChart>
         </ChartContainer>
       </CardContent>
