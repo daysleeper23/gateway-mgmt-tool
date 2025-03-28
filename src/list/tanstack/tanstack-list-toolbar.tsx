@@ -1,6 +1,6 @@
 import { Table } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { models, statuses, versions } from "@/data/mock/common";
+import { models, OptionData, statuses, versions } from "@/data/mock/common";
 import TanstackListFilter from "./tanstack-list-filter";
 import { X } from "lucide-react";
 
@@ -8,11 +8,7 @@ import { X } from "lucide-react";
 interface FilterConfig {
   id: string;
   title: string;
-  options: Array<{
-    label: string;
-    value: string;
-    icon?: React.ComponentType<{ className?: string }>;
-  }>;
+  options: OptionData[];
 }
 
 interface TanstackListToolbarProps<TData> {

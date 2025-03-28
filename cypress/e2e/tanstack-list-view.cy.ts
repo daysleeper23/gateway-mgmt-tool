@@ -376,7 +376,7 @@ describe("Tanstack List View - Responsive UI", () => {
       cy.wait(200);
       cy.get('[data-testid="list-row"]').should("have.length", ACTIVE_COUNT);
 
-      cy.get('body').click(1, 1);
+      cy.get("body").click(1, 1);
 
       cy.get('[data-testid="list-filter-reset"]').click();
       cy.wait(200);

@@ -24,7 +24,10 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { GatewayTimeInStatus, mapStatusToChartColor } from "@/data/types/gateway";
+import {
+  GatewayTimeInStatus,
+  mapStatusToChartColor,
+} from "@/data/types/gateway";
 import { formatNumber } from "@/list/utils";
 
 const chartConfig = {
@@ -65,7 +68,7 @@ const TimeInStatusChart = ({
   const chartData = Object.entries(timeInStatuses).map(([status, time]) => ({
     status,
     time,
-    fill: `var(--color-${status})`
+    fill: `var(--color-${status})`,
   }));
   const maxTime = Math.max(...chartData.map((item) => item.time));
 
@@ -106,11 +109,7 @@ const TimeInStatusChart = ({
               cursor={false}
               content={<ChartTooltipContent indicator="line" />}
             />
-            <Bar
-              dataKey="time"
-              layout="vertical"
-              radius={4}
-            >
+            <Bar dataKey="time" layout="vertical" radius={4}>
               <LabelList
                 dataKey="status"
                 position="left"
