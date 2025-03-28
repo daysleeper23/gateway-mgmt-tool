@@ -7,7 +7,10 @@ import {
 } from "@/components/ui/card";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid } from "recharts";
 import { formatTimeUS } from "@/list/utils";
-import { GatewayStatsSummary } from "@/data/types/gateway";
+import {
+  GatewayStatsSummary,
+  mapStatusToChartColor,
+} from "@/data/types/gateway";
 import {
   ChartConfig,
   ChartContainer,
@@ -30,28 +33,28 @@ const HistorySamplesChart = ({
       index === sortedSamples.length - 1
         ? formatTimeUS(sample.endTime)
         : formatTimeUS(sample.startTime),
-    ACTIVE: sample.timeInStatusesS.active,
-    INACTIVE: sample.timeInStatusesS.inactive,
-    UNSTABLE: sample.timeInStatusesS.unstable,
-    OFFLINE: sample.timeInStatusesS.offline,
+    ACTIVE: sample.timeInStatusesS.active || 0,
+    INACTIVE: sample.timeInStatusesS.inactive || 0,
+    UNSTABLE: sample.timeInStatusesS.unstable || 0,
+    OFFLINE: sample.timeInStatusesS.offline || 0,
   }));
 
   const chartConfig = {
     ACTIVE: {
       label: "ACTIVE",
-      color: "hsl(var(--chart-2))",
+      color: mapStatusToChartColor.ACTIVE,
     },
     INACTIVE: {
       label: "INACTIVE",
-      color: "hsl(var(--chart-5))",
+      color: mapStatusToChartColor.INACTIVE,
     },
     UNSTABLE: {
       label: "UNSTABLE",
-      color: "hsl(var(--chart-4))",
+      color: mapStatusToChartColor.UNSTABLE,
     },
     OFFLINE: {
       label: "OFFLINE",
-      color: "hsl(var(--chart-1))",
+      color: mapStatusToChartColor.OFFLINE,
     },
   } satisfies ChartConfig;
 

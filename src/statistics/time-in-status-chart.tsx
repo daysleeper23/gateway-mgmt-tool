@@ -24,13 +24,33 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { GatewayTimeInStatus } from "@/data/types/gateway";
+import { GatewayTimeInStatus, mapStatusToChartColor } from "@/data/types/gateway";
 import { formatNumber } from "@/list/utils";
 
 const chartConfig = {
   time: {
     label: "Time",
     color: "hsl(var(--chart-1))",
+  },
+  active: {
+    label: "ACTIVE",
+    color: mapStatusToChartColor.ACTIVE,
+  },
+  inactive: {
+    label: "INACTIVE",
+    color: mapStatusToChartColor.INACTIVE,
+  },
+  unstable: {
+    label: "UNSTABLE",
+    color: mapStatusToChartColor.UNSTABLE,
+  },
+  offline: {
+    label: "OFFLINE",
+    color: mapStatusToChartColor.OFFLINE,
+  },
+  unavailable: {
+    label: "UNAVAILABLE",
+    color: mapStatusToChartColor.UNAVAILABLE,
   },
   label: {
     color: "hsl(var(--background))",
@@ -45,6 +65,7 @@ const TimeInStatusChart = ({
   const chartData = Object.entries(timeInStatuses).map(([status, time]) => ({
     status,
     time,
+    fill: `var(--color-${status})`
   }));
   const maxTime = Math.max(...chartData.map((item) => item.time));
 
@@ -88,7 +109,6 @@ const TimeInStatusChart = ({
             <Bar
               dataKey="time"
               layout="vertical"
-              fill="var(--color-time)"
               radius={4}
             >
               <LabelList

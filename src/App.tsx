@@ -14,7 +14,7 @@ const NotFoundView = lazy(() => import("./layout/404"));
 const App = () => {
   return (
     <>
-      <div className="flex w-full h-full bg-gray-50">
+      <div className="flex w-full h-full">
         <SidebarProvider className="w-full h-full">
           <AppSidebar />
           <main className="flex flex-col w-full h-full">

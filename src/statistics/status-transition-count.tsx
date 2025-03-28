@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/table";
 import {
   GatewayStatusTransitionCounts,
-  mapStatusToNumeric,
+  mapStatusToChartColor,
 } from "@/data/types/gateway";
 import { CircleSmall } from "lucide-react";
 
@@ -26,29 +26,28 @@ const StatusTransitions = ({
 }) => {
   const formatTransitionString = (transition: string) => {
     const [from, to] = transition.split("To");
-    const fromColorIndex = 5 -
-      mapStatusToNumeric[
-        from.toUpperCase() as keyof typeof mapStatusToNumeric
+    const fromColorIndex =
+      mapStatusToChartColor[
+        from.toUpperCase() as keyof typeof mapStatusToChartColor
       ];
-    const toColorIndex = 5 - 
-      mapStatusToNumeric[to.toUpperCase() as keyof typeof mapStatusToNumeric];
+    const toColorIndex =
+      mapStatusToChartColor[
+        to.toUpperCase() as keyof typeof mapStatusToChartColor
+      ];
 
     return {
       from: (
         <div className="flex items-center gap-2">
           <CircleSmall
-            stroke={`hsl(var(--chart-${fromColorIndex}))`}
-            fill={`hsl(var(--chart-${fromColorIndex}))`}
+            stroke={`${fromColorIndex}`}
+            fill={`${fromColorIndex}`}
           />
           {from.toUpperCase()}
         </div>
       ),
       to: (
         <div className="flex items-center gap-2">
-          <CircleSmall
-            stroke={`hsl(var(--chart-${toColorIndex}))`}
-            fill={`hsl(var(--chart-${toColorIndex}))`}
-          />
+          <CircleSmall stroke={`${toColorIndex}`} fill={`${toColorIndex}`} />
           {to.toUpperCase()}
         </div>
       ),
@@ -62,28 +61,32 @@ const StatusTransitions = ({
         <CardDescription>Number of status change per type</CardDescription>
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader className="bg-muted">
-            <TableRow>
-              <TableHead>From</TableHead>
-              <TableHead>To</TableHead>
-              <TableHead>No. of changes</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {Object.entries(statusTransitionCounts).map(
-              ([transition, count]) => (
-                <TableRow key={transition}>
-                  <TableCell>
-                    {formatTransitionString(transition).from}
-                  </TableCell>
-                  <TableCell>{formatTransitionString(transition).to}</TableCell>
-                  <TableCell>{count}</TableCell>
-                </TableRow>
-              ),
-            )}
-          </TableBody>
-        </Table>
+        <div className="border rounded-md overflow-hidden">
+          <Table>
+            <TableHeader className="bg-muted">
+              <TableRow>
+                <TableHead>From</TableHead>
+                <TableHead>To</TableHead>
+                <TableHead>No. of changes</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {Object.entries(statusTransitionCounts).map(
+                ([transition, count]) => (
+                  <TableRow key={transition}>
+                    <TableCell>
+                      {formatTransitionString(transition).from}
+                    </TableCell>
+                    <TableCell>
+                      {formatTransitionString(transition).to}
+                    </TableCell>
+                    <TableCell>{count}</TableCell>
+                  </TableRow>
+                ),
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </CardContent>
     </Card>
   );

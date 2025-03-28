@@ -1,8 +1,7 @@
 import { mount } from "cypress/react";
 
 declare global {
-  namespace Cypress {
-    // eslint-disable-line @typescript-eslint/no-namespace
+  namespace Cypress { // eslint-disable-line @typescript-eslint/no-namespace
     interface Chainable {
       mount(component: React.ReactNode, options?: any): Chainable; // eslint-disable-line @typescript-eslint/no-explicit-any
       openEditGatewayForm(): Chainable<void>;

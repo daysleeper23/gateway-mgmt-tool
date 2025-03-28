@@ -81,7 +81,7 @@ const TanstackListView = () => {
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
-                className="px-6 text-primary/85 hover:bg-muted/50"
+                className="px-6 text-secondary-foreground hover:bg-muted/50"
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
                 data-testid="list-row"
