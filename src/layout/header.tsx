@@ -21,26 +21,24 @@ const HeaderBar = () => {
         <Separator orientation="vertical" className="mr-2 max-h-4" />
         <Breadcrumb>
           <BreadcrumbList>
-            <BreadcrumbItem>
-              {z.string().uuid().safeParse(location.pathname.split("/")[1])
-                .success ? (
-                <>
-                  <BreadcrumbLink href="/">Gateways</BreadcrumbLink>
-                  <BreadcrumbSeparator />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage className="w-64 truncate md:w-auto">
-                      {location.pathname.split("/").reverse()[0]}
-                    </BreadcrumbPage>
-                  </BreadcrumbItem>
-                </>
-              ) : location.pathname === "/" ? (
-                <BreadcrumbPage>Gateways</BreadcrumbPage>
-              ) : (
-                <BreadcrumbPage className="capitalize">
-                  {location.pathname.split("/")[1]}
-                </BreadcrumbPage>
-              )}
-            </BreadcrumbItem>
+            {z.string().uuid().safeParse(location.pathname.split("/")[1])
+              .success ? (
+              <>
+                <BreadcrumbLink href="/">Gateways</BreadcrumbLink>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage className="w-64 truncate md:w-auto">
+                    {location.pathname.split("/").reverse()[0]}
+                  </BreadcrumbPage>
+                </BreadcrumbItem>
+              </>
+            ) : location.pathname === "/" ? (
+              <BreadcrumbPage>Gateways</BreadcrumbPage>
+            ) : (
+              <BreadcrumbPage className="capitalize">
+                {location.pathname.split("/")[1]}
+              </BreadcrumbPage>
+            )}
           </BreadcrumbList>
         </Breadcrumb>
       </div>

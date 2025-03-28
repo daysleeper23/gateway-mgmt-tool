@@ -2,7 +2,8 @@
 
 # Gateway Management Demo
 
-This project implemented a user interface for viewing and editing gateways, using React and Typescript. 
+This project implemented a user interface for viewing and editing gateways, using React and Typescript.
+
 - The primary UI is a list/table view, with sorting & filtering functions.
 - The secondary UI is a detail view that utilizes different visualizations to display the statistics of a gateway.
 

@@ -9,6 +9,14 @@ export const mapStatusToNumeric = {
   OFFLINE: 0,
 };
 
+export const mapStatusToChartColor = {
+  ACTIVE: "hsl(var(--chart-2))",
+  UNSTABLE: "hsl(var(--chart-5))",
+  INACTIVE: "hsl(var(--chart-3))",
+  UNAVAILABLE: "hsl(var(--chart-4))",
+  OFFLINE: "hsl(var(--chart-1))",
+};
+
 export const GatewayStatusEnum = z.enum([
   "ACTIVE",
   "UNSTABLE",

@@ -1,6 +1,19 @@
-import { Activity, Wifi, WifiLow, WifiOff, WifiZero } from "lucide-react";
+import {
+  Activity,
+  LucideIcon,
+  Wifi,
+  WifiLow,
+  WifiOff,
+  WifiZero,
+} from "lucide-react";
 
-export const statuses = [
+export type OptionData = {
+  value: string;
+  label: string;
+  icon?: LucideIcon;
+};
+
+export const statuses: OptionData[] = [
   {
     value: "ACTIVE",
     label: "ACTIVE",
@@ -28,7 +41,7 @@ export const statuses = [
   },
 ];
 
-export const models = [
+export const models: OptionData[] = [
   {
     value: "Simulated Gateway",
     label: "Simulated Gateway",
@@ -39,7 +52,7 @@ export const models = [
   },
 ];
 
-export const versions = [
+export const versions: OptionData[] = [
   {
     value: "1.4.4.4",
     label: "1.4.4.4",

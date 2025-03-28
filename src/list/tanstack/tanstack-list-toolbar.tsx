@@ -1,19 +1,34 @@
 import { Table } from "@tanstack/react-table";
-
 import { Button } from "@/components/ui/button";
-
-import { models, statuses, versions } from "@/data/mock/common";
+import { models, OptionData, statuses, versions } from "@/data/mock/common";
 import TanstackListFilter from "./tanstack-list-filter";
 import { X } from "lucide-react";
 
+// Define a type for filter configurations
+interface FilterConfig {
+  id: string;
+  title: string;
+  options: OptionData[];
+}
+
 interface TanstackListToolbarProps<TData> {
   table: Table<TData>;
+
+  // enable external configuration for filters
+  filters?: FilterConfig[];
 }
 
 function TanstackListToolbar<TData>({
   table,
+  filters = [
+    { id: "status", title: "Status", options: statuses },
+    { id: "version", title: "Version", options: versions },
+    { id: "model", title: "Model", options: models },
+  ],
 }: TanstackListToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
+  const totalRowCount = table.getCoreRowModel().rows.length;
+  const filteredRowCount = table.getFilteredRowModel().rows.length;
 
   return (
     <div
@@ -22,33 +37,21 @@ function TanstackListToolbar<TData>({
     >
       <div className="text-sm font-medium hidden sm:block">Filter</div>
       <div className="flex flex-1 items-center gap-2 flex-wrap">
-        {table.getColumn("status") && (
-          <div data-testid="list-filter-status">
-            <TanstackListFilter
-              column={table.getColumn("status")}
-              title="Status"
-              options={statuses}
-            />
-          </div>
-        )}
-        {table.getColumn("version") && (
-          <div data-testid="list-filter-version">
-            <TanstackListFilter
-              column={table.getColumn("version")}
-              title="Version"
-              options={versions}
-            />
-          </div>
-        )}
-        {table.getColumn("model") && (
-          <div data-testid="list-filter-model">
-            <TanstackListFilter
-              column={table.getColumn("model")}
-              title="Model"
-              options={models}
-            />
-          </div>
-        )}
+        {filters.map((filter) => {
+          const column = table.getColumn(filter.id);
+          if (!column) return null;
+
+          return (
+            <div key={filter.id} data-testid={`list-filter-${filter.id}`}>
+              <TanstackListFilter
+                column={column}
+                title={filter.title}
+                options={filter.options}
+              />
+            </div>
+          );
+        })}
+
         {isFiltered && (
           <Button
             variant="ghost"
@@ -60,6 +63,15 @@ function TanstackListToolbar<TData>({
             <X className="ml-2 h-4 w-4" />
           </Button>
         )}
+      </div>
+
+      <div
+        className="text-sm text-muted-foreground"
+        data-testid="list-row-count"
+      >
+        {isFiltered
+          ? `${filteredRowCount} of ${totalRowCount} items`
+          : `${totalRowCount} items`}
       </div>
     </div>
   );

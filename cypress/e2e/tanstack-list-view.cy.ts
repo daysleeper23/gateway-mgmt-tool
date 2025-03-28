@@ -1,4 +1,5 @@
 beforeEach(() => {
+  cy.viewport("macbook-16");
   cy.visit("/");
 });
 
@@ -374,6 +375,8 @@ describe("Tanstack List View - Responsive UI", () => {
       cy.get('[data-testid="list-filter-dropdown"]').contains("ACTIVE").click();
       cy.wait(200);
       cy.get('[data-testid="list-row"]').should("have.length", ACTIVE_COUNT);
+
+      cy.get("body").click(1, 1);
 
       cy.get('[data-testid="list-filter-reset"]').click();
       cy.wait(200);

@@ -7,7 +7,10 @@ import {
 } from "@/components/ui/card";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid } from "recharts";
 import { formatTimeUS } from "@/list/utils";
-import { GatewayStatsSummary } from "@/data/types/gateway";
+import {
+  GatewayStatsSummary,
+  mapStatusToChartColor,
+} from "@/data/types/gateway";
 import {
   ChartConfig,
   ChartContainer,
@@ -30,28 +33,28 @@ const HistorySamplesChart = ({
       index === sortedSamples.length - 1
         ? formatTimeUS(sample.endTime)
         : formatTimeUS(sample.startTime),
-    ACTIVE: sample.timeInStatusesS.active,
-    INACTIVE: sample.timeInStatusesS.inactive,
-    UNSTABLE: sample.timeInStatusesS.unstable,
-    OFFLINE: sample.timeInStatusesS.offline,
+    ACTIVE: sample.timeInStatusesS.active || 0,
+    INACTIVE: sample.timeInStatusesS.inactive || 0,
+    UNSTABLE: sample.timeInStatusesS.unstable || 0,
+    OFFLINE: sample.timeInStatusesS.offline || 0,
   }));
 
   const chartConfig = {
     ACTIVE: {
       label: "ACTIVE",
-      color: "hsl(var(--chart-2))",
+      color: mapStatusToChartColor.ACTIVE,
     },
     INACTIVE: {
       label: "INACTIVE",
-      color: "hsl(var(--chart-5))",
+      color: mapStatusToChartColor.INACTIVE,
     },
     UNSTABLE: {
       label: "UNSTABLE",
-      color: "hsl(var(--chart-4))",
+      color: mapStatusToChartColor.UNSTABLE,
     },
     OFFLINE: {
       label: "OFFLINE",
-      color: "hsl(var(--chart-1))",
+      color: mapStatusToChartColor.OFFLINE,
     },
   } satisfies ChartConfig;
 
@@ -93,42 +96,20 @@ const HistorySamplesChart = ({
               content={<ChartTooltipContent indicator="line" />}
             />
             <ChartLegend content={<ChartLegendContent />} />
-            <Area
-              type="monotone"
-              dataKey="ACTIVE"
-              stackId="1"
-              stroke="var(--color-ACTIVE)"
-              fill="var(--color-ACTIVE)"
-              fillOpacity={0.4}
-              name="ACTIVE"
-            />
-            <Area
-              type="monotone"
-              dataKey="INACTIVE"
-              stackId="1"
-              stroke="var(--color-INACTIVE)"
-              fill="var(--color-INACTIVE)"
-              fillOpacity={0.4}
-              name="INACTIVE"
-            />
-            <Area
-              type="monotone"
-              dataKey="UNSTABLE"
-              stackId="1"
-              stroke="var(--color-UNSTABLE)"
-              fill="var(--color-UNSTABLE)"
-              fillOpacity={0.4}
-              name="UNSTABLE"
-            />
-            <Area
-              type="monotone"
-              dataKey="OFFLINE"
-              stackId="1"
-              stroke="var(--color-OFFLINE)"
-              fill="var(--color-OFFLINE)"
-              fillOpacity={0.4}
-              name="OFFLINE"
-            />
+            {
+              Object.entries(chartConfig).map(([key, value]) => (
+                <Area
+                  key={key}
+                  type="monotone"
+                  dataKey={key}
+                  stackId="1"
+                  stroke={value.color}
+                  fill={value.color}
+                  fillOpacity={0.4}
+                  name={value.label}
+                />
+              ))
+            }
           </AreaChart>
         </ChartContainer>
       </CardContent>
